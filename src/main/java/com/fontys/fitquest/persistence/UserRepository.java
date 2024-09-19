@@ -17,5 +17,4 @@ public interface UserRepository {
     Optional<UserEntity> findById(long userId);
 
     int count();
-
 }

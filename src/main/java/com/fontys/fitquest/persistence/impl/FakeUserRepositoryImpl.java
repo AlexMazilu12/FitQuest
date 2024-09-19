@@ -27,7 +27,12 @@ public class FakeUserRepositoryImpl implements UserRepository {
 
     @Override
     public UserEntity save(UserEntity student) {
-        return null;
+        if (student.getId() == null) {
+            student.setId(NEXT_ID);
+            NEXT_ID++;
+            this.savedUsers.add(student);
+        }
+        return student;
     }
 
     @Override

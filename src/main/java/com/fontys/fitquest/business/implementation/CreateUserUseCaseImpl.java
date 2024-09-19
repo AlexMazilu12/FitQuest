@@ -28,12 +28,16 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     }
 
     private UserEntity saveNewUser(CreateUserRequest request) {
-
-        UserEntity newStudent = UserEntity.builder()
+        UserEntity newUser = UserEntity.builder()
                 .name(request.getName())
                 .email(request.getEmail())
                 .password(request.getPassword())
                 .build();
-        return userRepository.save(newStudent);
+
+        System.out.println("Saving user: " + newUser);
+        UserEntity savedUser = userRepository.save(newUser);
+
+        System.out.println("Saved user: " + savedUser);
+        return savedUser;
     }
 }

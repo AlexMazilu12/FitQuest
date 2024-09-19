@@ -1,8 +1,8 @@
 package com.fontys.fitquest.business;
 
-import fontys.sem3.school.domain.CreateCountryRequest;
-import fontys.sem3.school.domain.CreateCountryResponse;
+import com.fontys.fitquest.domain.CreateUserRequest;
+import com.fontys.fitquest.domain.CreateUserResponse;
 
 public interface CreateUserUseCase {
-    CreateCountryResponse createCountry(CreateCountryRequest request);
+    CreateUserResponse createUser(CreateUserRequest request);
 }

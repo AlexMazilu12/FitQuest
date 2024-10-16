@@ -20,4 +20,6 @@ public class CreateUserRequest {
 
     @NotNull
     private String password;
+
+    private Role role;
 }

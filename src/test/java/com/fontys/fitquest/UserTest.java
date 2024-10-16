@@ -1,5 +1,6 @@
 package com.fontys.fitquest;
 
+import com.fontys.fitquest.domain.Role;
 import com.fontys.fitquest.domain.User;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +11,7 @@ class UserTest {
     @Test
     void getName_shouldReturnUserName() {
         // arrange
-        User user = new User(1L, "John Doe", "john@example.com", "password123");
+        User user = new User(1L, "John Doe", "john@example.com", "password123", Role.USER);
 
         // act
         String actualName = user.getName();
@@ -22,7 +23,7 @@ class UserTest {
     @Test
     void getEmail_shouldReturnUserEmail() {
         // arrange
-        User user = new User(1L, "John Doe", "john@example.com", "password123");
+        User user = new User(1L, "John Doe", "john@example.com", "password123", Role.USER);
 
         // act
         String actualEmail = user.getEmail();
@@ -34,7 +35,7 @@ class UserTest {
     @Test
     void setPassword_shouldChangeUserPassword() {
         // arrange
-        User user = new User(1L, "John Doe", "john@example.com", "password123");
+        User user = new User(1L, "John Doe", "john@example.com", "password123", Role.TRAINER);
 
         // act
         user.setPassword("newPassword456");
@@ -47,7 +48,7 @@ class UserTest {
     @Test
     void getId_shouldReturnUserId() {
         // arrange
-        User user = new User(1L, "John Doe", "john@example.com", "password123");
+        User user = new User(1L, "John Doe", "john@example.com", "password123", Role.ADMIN);
 
         // act
         Long actualId = user.getId();

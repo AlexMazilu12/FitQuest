@@ -50,7 +50,7 @@ public class UsersController {
 
     @PutMapping("{id}")
     public ResponseEntity<Void> updateUser(@PathVariable("id") long id,
-                                              @RequestBody @Valid UpdateUserRequest request) {
+                                           @RequestBody @Valid UpdateUserRequest request) {
         request.setId(id);
         updateUserUseCase.updateUser(request);
         return ResponseEntity.noContent().build();

@@ -24,6 +24,9 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
         return CreateUserResponse.builder()
                 .userId(savedUser.getId())
+                .name(savedUser.getName())
+                .email(savedUser.getEmail())
+                .role(savedUser.getRole().toString())
                 .build();
     }
 
@@ -32,12 +35,9 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
                 .name(request.getName())
                 .email(request.getEmail())
                 .password(request.getPassword())
+                .role(request.getRole()) // Save the role
                 .build();
 
-        System.out.println("Saving user: " + newUser);
-        UserEntity savedUser = userRepository.save(newUser);
-
-        System.out.println("Saved user: " + savedUser);
-        return savedUser;
+        return userRepository.save(newUser);
     }
 }

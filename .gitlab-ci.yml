@@ -16,10 +16,10 @@ test:
     - ./gradlew test
 
 sonar:
-  stage: sonar
   image: gradle:8.10.1-eclipse-temurin-17
   script:
-    - ./gradlew sonarqube -Dsonar.projectKey=FitQuest
+    - ./gradlew sonarqube 
+      -Dsonar.projectKey=FitQuest
       -Dsonar.host.url=http://localhost:9000
       -Dsonar.login=admin
       -Dsonar.password=Bogdan.01071980

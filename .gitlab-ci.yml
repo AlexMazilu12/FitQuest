@@ -14,3 +14,16 @@ test:
   stage: test
   script:
     - ./gradlew test
+
+sonar:
+  image: gradle:8.10.1-eclipse-temurin-17
+  script:
+    - mvn clean verify sonar:sonar
+      -Dsonar.projectKey=FitQuest
+      -Dsonar.projectName='FitQuest'
+      -Dsonar.host.url=http://localhost:9000
+      -Dsonar.login=admin
+      -Dsonar.password=Bogdan.01071980
+      -Dsonar.token=sqp_8261163a8f52ff5bb341250bd20e006e96ce472c
+  only:
+    - main

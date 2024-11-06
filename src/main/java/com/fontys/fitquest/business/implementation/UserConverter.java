@@ -12,7 +12,7 @@ public class UserConverter {
                 .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
-                .role(user.getRole()) // Convert the role
+                .role(user.getRole())
                 .build();
     }
 }

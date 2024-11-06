@@ -29,7 +29,7 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
     private void updateFields(UpdateUserRequest request, UserEntity user) {
         user.setName(request.getName());
         user.setEmail(request.getEmail());
-        user.setRole(request.getRole()); // Update the role
+        user.setRole(request.getRole());
 
         userRepository.save(user);
     }

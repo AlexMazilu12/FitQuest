@@ -35,7 +35,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
                 .name(request.getName())
                 .email(request.getEmail())
                 .password(request.getPassword())
-                .role(request.getRole()) // Save the role
+                .role(request.getRole())
                 .build();
 
         return userRepository.save(newUser);

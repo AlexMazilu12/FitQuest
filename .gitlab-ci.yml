@@ -23,8 +23,9 @@ test:
 
 sonarqube-check:
   stage: sonarqube-check
-
-  script: gradle sonar
+  image: gradle:latest
+  script:
+    - gradle sonar
   allow_failure: true
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'

@@ -3,14 +3,37 @@ plugins {
     id 'org.springframework.boot' version '3.3.3'
     id 'io.spring.dependency-management' version '1.1.6'
     id "org.sonarqube" version "5.1.0.4882"
+    id 'jacoco'
 }
+
+jacoco {
+    toolVersion = "0.8.12"
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+        csv.required = false
+        html.required = true
+        xml.outputLocation.set(file("${buildDir}/jacoco/jacocoTestReport.xml"))
+    }
+}
+
+plugins.withType(JacocoPlugin) {
+    tasks["test"].finalizedBy 'jacocoTestReport'
+}
+
 sonar {
     properties {
         property "sonar.projectKey", "FitQuest"
         property "sonar.projectName", "FitQuest"
         property "sonar.qualitygate.wait", true
+        property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/jacoco/jacocoTestReport.xml"
+        property "sonar.token", "squ_1aee908d5c89f348a6e20b14d9cf101d990dbe45"
     }
 }
+
 group = 'com.fontys'
 version = '0.0.1-SNAPSHOT'
 

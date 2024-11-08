@@ -1,7 +1,7 @@
 package com.fontys.fitquest.domain;
 
 public enum Role {
-    TRAINEE,
+    USER,
     TRAINER,
     ADMIN
 }

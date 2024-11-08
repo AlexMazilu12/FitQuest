@@ -1,10 +1,13 @@
 package com.fontys.fitquest;
 
+import com.fontys.fitquest.business.implementation.UserConverter;
 import com.fontys.fitquest.domain.Role;
 import com.fontys.fitquest.domain.User;
+import com.fontys.fitquest.persistence.entity.UserEntity;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class UserTest {
 
@@ -55,5 +58,21 @@ class UserTest {
 
         // assert
         assertEquals(1L, actualId);
+    }
+
+    @Test
+    void convert_shouldConvertUserEntityToUser() {
+        // Arrange
+        UserEntity userEntity = new UserEntity(1L, "john", "john@example.com", "password123", Role.USER);
+
+        // Act
+        User user = UserConverter.convert(userEntity);
+
+        // Assert
+        assertNotNull(user);
+        assertEquals(1L, user.getId());
+        assertEquals("john", user.getName());
+        assertEquals("john@example.com", user.getEmail());
+        assertEquals(Role.USER, user.getRole());
     }
 }

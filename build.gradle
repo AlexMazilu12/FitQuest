@@ -30,7 +30,6 @@ sonar {
         property "sonar.qualitygate.wait", true
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/jacoco/jacocoTestReport.xml"
-        property "sonar.token", "squ_1aee908d5c89f348a6e20b14d9cf101d990dbe45"
     }
 }
 

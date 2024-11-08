@@ -45,7 +45,6 @@ java {
 repositories {
     mavenCentral()
 }
-
 dependencies {
     implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
     implementation 'org.jetbrains:annotations:24.0.1'

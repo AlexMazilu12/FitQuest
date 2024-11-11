@@ -15,7 +15,7 @@ jacocoTestReport {
         xml.required = true
         csv.required = false
         html.required = true
-        xml.outputLocation.set(file("${buildDir}/jacoco/jacocoTestReport.xml"))
+        xml.outputLocation.set(file("build/jacoco/jacocoTestReport.xml"))
     }
 }
 
@@ -27,10 +27,11 @@ sonar {
     properties {
         property "sonar.projectKey", "FitQuest"
         property "sonar.projectName", "FitQuest"
-        property "sonar.host.url", "localhost:9000"
+        property "sonar.host.url", "http://127.0.0.1:9000"
+        property "sonar.organization", "DevOpsHint"
         property "sonar.qualitygate.wait", true
         property "sonar.java.coveragePlugin", "jacoco"
-        property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/jacoco/jacocoTestReport.xml"
+        property "sonar.coverage.jacoco.xmlReportPaths", "build/jacoco/jacocoTestReport.xml"
     }
 }
 
@@ -67,4 +68,7 @@ dependencies {
 
 tasks.withType(Test).configureEach {
     useJUnitPlatform()
+}
+test {
+    finalizedBy jacocoTestReport
 }

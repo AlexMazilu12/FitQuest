@@ -23,7 +23,7 @@ test:
 sonarqube-check:
   stage: sonarqube-check
   script:
-    ./gradlew sonar "-Dsonar.token=sqa_6be8286374fcbf65deffbaa0ea62200233d99622" "-Dsonar.jacoco.reportPaths=build/jacoco/jacocoTestReport.xml"
+    ./gradlew sonar "-Dsonar.token=SONAR_TOKEN"
   allow_failure: true
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'

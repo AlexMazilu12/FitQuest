@@ -27,6 +27,7 @@ sonar {
     properties {
         property "sonar.projectKey", "FitQuest"
         property "sonar.projectName", "FitQuest"
+        property "sonar.host.url", "127.0.0.1:9000"
         property "sonar.qualitygate.wait", true
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/jacoco/jacocoTestReport.xml"

@@ -23,7 +23,7 @@ test:
 sonarqube-check:
   stage: sonarqube-check
   script:
-    - ./gradlew sonar -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_LOGIN -Dsonar.password=$SONAR_PASSWORD -Dsonar.jacoco.reportPaths=build/reports/jacoco/jacocoTestReport.xml
+    ./gradlew sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=admin -Dsonar.password=fVY9iRcRcychqXT$ -Dsonar.jacoco.reportPaths=build/reports/jacoco/jacocoTestReport.xml
   allow_failure: true
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'

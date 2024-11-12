@@ -28,8 +28,6 @@ sonar {
         property "sonar.projectKey", "FitQuest"
         property "sonar.projectName", "FitQuest"
         property "sonar.host.url", "http://127.0.0.1:9000"
-        property "sonar.login", "admin"
-        property "sonar.password", "fVY9iRcRcychqXT!"
         property "sonar.organization", "DevOpsHint"
         property "sonar.qualitygate.wait", true
         property "sonar.java.coveragePlugin", "jacoco"

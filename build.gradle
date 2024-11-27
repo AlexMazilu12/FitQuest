@@ -19,6 +19,7 @@ jacocoTestReport {
     }
 }
 
+
 plugins.withType(JacocoPlugin) {
     tasks["test"].finalizedBy 'jacocoTestReport'
 }
@@ -63,6 +64,7 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation 'com.h2database:h2'
     implementation 'org.flywaydb:flyway-mysql'
+    implementation 'org.flywaydb:flyway-core'
     implementation 'mysql:mysql-connector-java:8.0.33'
 }
 

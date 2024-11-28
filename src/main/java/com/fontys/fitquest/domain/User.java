@@ -1,6 +1,7 @@
 package com.fontys.fitquest.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fontys.fitquest.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User extends UserEntity {
 
     private Long id;
     private String name;

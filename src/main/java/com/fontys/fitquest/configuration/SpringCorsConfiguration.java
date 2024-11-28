@@ -1,4 +1,4 @@
-package com.fontys.fitquest.configuration.exceptionhandler;
+package com.fontys.fitquest.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

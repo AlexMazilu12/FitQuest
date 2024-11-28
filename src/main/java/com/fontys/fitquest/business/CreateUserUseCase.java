@@ -1,7 +1,7 @@
 package com.fontys.fitquest.business;
 
-import com.fontys.fitquest.domain.CreateUserRequest;
-import com.fontys.fitquest.domain.CreateUserResponse;
+import com.fontys.fitquest.domain.requests.CreateUserRequest;
+import com.fontys.fitquest.domain.responses.CreateUserResponse;
 
 public interface CreateUserUseCase {
     CreateUserResponse createUser(CreateUserRequest request);

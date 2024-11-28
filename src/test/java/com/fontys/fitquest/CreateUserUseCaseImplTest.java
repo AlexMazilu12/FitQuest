@@ -2,8 +2,8 @@ package com.fontys.fitquest;
 
 import com.fontys.fitquest.business.exception.NameAlreadyExistsException;
 import com.fontys.fitquest.business.implementation.CreateUserUseCaseImpl;
-import com.fontys.fitquest.domain.CreateUserRequest;
-import com.fontys.fitquest.domain.CreateUserResponse;
+import com.fontys.fitquest.domain.requests.CreateUserRequest;
+import com.fontys.fitquest.domain.responses.CreateUserResponse;
 import com.fontys.fitquest.domain.Role;
 import com.fontys.fitquest.persistence.UserRepository;
 import com.fontys.fitquest.persistence.entity.UserEntity;

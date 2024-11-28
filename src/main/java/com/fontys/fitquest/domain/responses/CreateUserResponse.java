@@ -1,4 +1,4 @@
-package com.fontys.fitquest.domain;
+package com.fontys.fitquest.domain.responses;
 
 import lombok.Builder;
 import lombok.Data;

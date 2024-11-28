@@ -3,7 +3,7 @@ package com.fontys.fitquest;
 import com.fontys.fitquest.business.exception.InvalidUserException;
 import com.fontys.fitquest.business.implementation.UpdateUserUseCaseImpl;
 import com.fontys.fitquest.domain.Role;
-import com.fontys.fitquest.domain.UpdateUserRequest;
+import com.fontys.fitquest.domain.requests.UpdateUserRequest;
 import com.fontys.fitquest.persistence.UserRepository;
 import com.fontys.fitquest.persistence.entity.UserEntity;
 import org.junit.jupiter.api.Test;

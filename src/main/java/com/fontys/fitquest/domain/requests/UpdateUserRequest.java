@@ -1,5 +1,6 @@
-package com.fontys.fitquest.domain;
+package com.fontys.fitquest.domain.requests;
 
+import com.fontys.fitquest.domain.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,16 +11,12 @@ import org.jetbrains.annotations.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateUserRequest {
-
+public class UpdateUserRequest {
+    private Long id;
     @NotNull
     private String name;
-
     @NotNull
     private String email;
-
-    @NotNull
-    private String password;
 
     private Role role;
 }

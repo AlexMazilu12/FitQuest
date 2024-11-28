@@ -2,6 +2,11 @@ package com.fontys.fitquest.controller;
 
 import com.fontys.fitquest.business.*;
 import com.fontys.fitquest.domain.*;
+import com.fontys.fitquest.domain.requests.CreateUserRequest;
+import com.fontys.fitquest.domain.requests.GetAllUsersRequest;
+import com.fontys.fitquest.domain.requests.UpdateUserRequest;
+import com.fontys.fitquest.domain.responses.CreateUserResponse;
+import com.fontys.fitquest.domain.responses.GetAllUsersResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

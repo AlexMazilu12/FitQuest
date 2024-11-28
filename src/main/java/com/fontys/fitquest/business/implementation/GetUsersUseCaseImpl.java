@@ -1,8 +1,8 @@
 package com.fontys.fitquest.business.implementation;
 
 import com.fontys.fitquest.business.GetUsersUseCase;
-import com.fontys.fitquest.domain.GetAllUsersRequest;
-import com.fontys.fitquest.domain.GetAllUsersResponse;
+import com.fontys.fitquest.domain.requests.GetAllUsersRequest;
+import com.fontys.fitquest.domain.responses.GetAllUsersResponse;
 import com.fontys.fitquest.domain.User;
 import com.fontys.fitquest.persistence.UserRepository;
 import com.fontys.fitquest.persistence.entity.UserEntity;

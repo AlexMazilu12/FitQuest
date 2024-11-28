@@ -2,7 +2,7 @@ package com.fontys.fitquest.business.implementation;
 
 import com.fontys.fitquest.business.UpdateUserUseCase;
 import com.fontys.fitquest.business.exception.InvalidUserException;
-import com.fontys.fitquest.domain.UpdateUserRequest;
+import com.fontys.fitquest.domain.requests.UpdateUserRequest;
 import com.fontys.fitquest.persistence.UserRepository;
 import com.fontys.fitquest.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;

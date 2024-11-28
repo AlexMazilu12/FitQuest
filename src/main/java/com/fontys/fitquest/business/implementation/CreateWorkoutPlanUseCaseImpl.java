@@ -2,8 +2,8 @@ package com.fontys.fitquest.business.implementation;
 
 import com.fontys.fitquest.business.CreateWorkoutPlanUseCase;
 import com.fontys.fitquest.business.exception.WorkoutPlanTitleAlreadyExistsException;
-import com.fontys.fitquest.domain.CreateWorkoutPlanRequest;
-import com.fontys.fitquest.domain.CreateWorkoutPlanResponse;
+import com.fontys.fitquest.domain.requests.CreateWorkoutPlanRequest;
+import com.fontys.fitquest.domain.responses.CreateWorkoutPlanResponse;
 import com.fontys.fitquest.persistence.WorkoutPlanRepository;
 import com.fontys.fitquest.persistence.entity.WorkoutPlanEntity;
 import lombok.AllArgsConstructor;

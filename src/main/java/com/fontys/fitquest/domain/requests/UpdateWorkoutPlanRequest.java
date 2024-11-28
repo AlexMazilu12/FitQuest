@@ -1,4 +1,4 @@
-package com.fontys.fitquest.domain;
+package com.fontys.fitquest.domain.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,12 +10,12 @@ import org.jetbrains.annotations.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateUserRequest {
+public class UpdateWorkoutPlanRequest {
     private Long id;
-    @NotNull
-    private String name;
-    @NotNull
-    private String email;
+    private int userId;
 
-    private Role role;
+    @NotNull
+    private String title;
+
+    private String description;
 }

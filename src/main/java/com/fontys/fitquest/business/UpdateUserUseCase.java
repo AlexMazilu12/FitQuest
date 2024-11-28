@@ -1,6 +1,6 @@
 package com.fontys.fitquest.business;
 
-import com.fontys.fitquest.domain.UpdateUserRequest;
+import com.fontys.fitquest.domain.requests.UpdateUserRequest;
 
 
 public interface UpdateUserUseCase {

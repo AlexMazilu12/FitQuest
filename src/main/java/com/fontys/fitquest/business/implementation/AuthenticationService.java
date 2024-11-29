@@ -10,15 +10,17 @@ import com.fontys.fitquest.domain.User;
 import com.fontys.fitquest.domain.requests.LoginRequest;
 import com.fontys.fitquest.domain.responses.LoginResponse;
 import com.fontys.fitquest.persistence.UserRepository;
+import com.fontys.fitquest.persistence.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationService {
+public class AuthenticationService extends DefaultOAuth2UserService{
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AccessTokenEncoder accessTokenEncoder;
@@ -51,14 +53,13 @@ public class AuthenticationService {
         saveNewUser(tempUser);
     }
 
-    private User saveNewUser(User request) {
+    private UserEntity saveNewUser(User request) {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-        User newUser = User.builder()
+        UserEntity newUser = UserEntity.builder()
                 .email(request.getEmail())
                 .password(encodedPassword)
                 .role(Role.USER)
-                .name(request.getName())
                 .build();
 
         return userRepository.save(newUser);
@@ -73,6 +74,6 @@ public class AuthenticationService {
         Role role = user.get().getRole();
 
         return accessTokenEncoder.encode(
-                new AccessTokenImpl(user.get().getEmail(), userId, role, true));
+                new AccessTokenImpl(user.get().getEmail(), userId, role));
     }
 }

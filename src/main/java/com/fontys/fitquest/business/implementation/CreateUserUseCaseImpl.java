@@ -16,7 +16,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
     @Override
     public CreateUserResponse createUser(CreateUserRequest request) {
-        if (userRepository.existsByName(request.getName())) {
+        if (userRepository.existsByEmail(request.getEmail())) {
             throw new NameAlreadyExistsException();
         }
 
@@ -24,7 +24,6 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
         return CreateUserResponse.builder()
                 .userId(savedUser.getId())
-                .name(savedUser.getName())
                 .email(savedUser.getEmail())
                 .role(savedUser.getRole().toString())
                 .build();
@@ -32,7 +31,6 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
     private UserEntity saveNewUser(CreateUserRequest request) {
         UserEntity newUser = UserEntity.builder()
-                .name(request.getName())
                 .email(request.getEmail())
                 .password(request.getPassword())
                 .role(request.getRole())

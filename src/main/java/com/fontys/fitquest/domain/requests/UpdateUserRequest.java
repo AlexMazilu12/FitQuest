@@ -14,8 +14,6 @@ import org.jetbrains.annotations.NotNull;
 public class UpdateUserRequest {
     private Long id;
     @NotNull
-    private String name;
-    @NotNull
     private String email;
 
     private Role role;

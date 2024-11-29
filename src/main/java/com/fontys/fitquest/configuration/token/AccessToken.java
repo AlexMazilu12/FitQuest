@@ -9,7 +9,5 @@ public interface AccessToken {
 
     Role getRole();
 
-    Boolean getVerified();
-
     Boolean hasRole(String roleName);
 }

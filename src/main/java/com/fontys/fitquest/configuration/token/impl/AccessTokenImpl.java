@@ -11,13 +11,11 @@ public class AccessTokenImpl implements AccessToken {
     private final String email;
     private final Long userId;
     private final Role role;
-    private final Boolean verified;
 
-    public AccessTokenImpl(String email, Long userId, Role role, boolean verified) {
+    public AccessTokenImpl(String email, Long userId, Role role) {
         this.email = email;
         this.userId = userId;
         this.role = role;
-        this.verified = verified;
     }
 
     @Override

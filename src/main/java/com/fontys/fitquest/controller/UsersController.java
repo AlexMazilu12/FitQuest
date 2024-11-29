@@ -26,7 +26,7 @@ public class UsersController {
     private final UpdateUserUseCase updateUserUseCase;
 
     @GetMapping("{id}")
-    public ResponseEntity<User> getStudent(@PathVariable(value = "id") final long id) {
+    public ResponseEntity<User> getUser(@PathVariable(value = "id") final long id) {
         final Optional<User> userOptional = getUserUseCase.getUser(id);
         if (userOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -35,8 +35,8 @@ public class UsersController {
     }
 
     @GetMapping
-    public ResponseEntity<GetAllUsersResponse> getAllUsers(@RequestParam(value = "name", required = false) String name) {
-        GetAllUsersRequest request = GetAllUsersRequest.builder().name(name).build();
+    public ResponseEntity<GetAllUsersResponse> getAllUsers(@RequestParam(value = "email", required = false) String email) {
+        GetAllUsersRequest request = GetAllUsersRequest.builder().email(email).build();
         GetAllUsersResponse response = getUsersUseCase.getUsers(request);
         return ResponseEntity.ok(response);
     }

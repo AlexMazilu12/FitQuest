@@ -1,10 +1,10 @@
 package com.fontys.fitquest.configuration.token.impl;
 
-
 import com.fontys.fitquest.business.exception.InvalidAccessTokenException;
 import com.fontys.fitquest.configuration.token.AccessToken;
 import com.fontys.fitquest.configuration.token.AccessTokenDecoder;
 import com.fontys.fitquest.configuration.token.AccessTokenEncoder;
+import com.fontys.fitquest.domain.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.JwtException;
@@ -13,14 +13,12 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -35,14 +33,12 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
     @Override
     public String encode(AccessToken accessToken) {
         Map<String, Object> claimsMap = new HashMap<>();
-        if (!CollectionUtils.isEmpty(accessToken.getRoles())) {
-            claimsMap.put("roles", accessToken.getRoles());
+        if (accessToken.getRole() != null) {
+            claimsMap.put("role", accessToken.getRole());
         }
         if (accessToken.getEmail() != null) {
             claimsMap.put("userId", accessToken.getUserId());
-            claimsMap.put("verified", accessToken.getVerified());
         }
-
 
         Instant now = Instant.now();
         return Jwts.builder()
@@ -61,11 +57,10 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
                     .parseClaimsJws(accessTokenEncoded);
             Claims claims = jwt.getBody();
 
-            List<String> roles = claims.get("roles", List.class);
+            String role = claims.get("role", String.class);
             Long userId = claims.get("userId", Long.class);
-            Boolean verified = claims.get("verified", Boolean.class);
 
-            return new AccessTokenImpl(claims.getSubject(), userId, roles, verified);
+            return new AccessTokenImpl(claims.getSubject(), userId, Role.valueOf(role));
         } catch (JwtException e) {
             throw new InvalidAccessTokenException(e.getMessage());
         }

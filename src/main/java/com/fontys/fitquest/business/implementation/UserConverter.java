@@ -10,7 +10,7 @@ public class UserConverter {
     public static User convert(UserEntity user) {
         return User.builder()
                 .id(user.getId())
-                .name(user.getName())
+                .password(user.getPassword())
                 .email(user.getEmail())
                 .role(user.getRole())
                 .build();

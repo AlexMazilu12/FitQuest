@@ -14,9 +14,6 @@ import org.jetbrains.annotations.NotNull;
 public class CreateUserRequest {
 
     @NotNull
-    private String name;
-
-    @NotNull
     private String email;
 
     @NotNull

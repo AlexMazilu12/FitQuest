@@ -30,3 +30,12 @@ sonarqube-check:
     - if: $CI_COMMIT_BRANCH == 'master'
     - if: $CI_COMMIT_BRANCH == 'main'
     - if: $CI_COMMIT_BRANCH == 'develop'
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying to production server..."
+    - ./gradlew deploy
+  only:
+    - master
+    - main

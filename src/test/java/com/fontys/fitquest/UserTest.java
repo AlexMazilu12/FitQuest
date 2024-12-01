@@ -14,7 +14,7 @@ class UserTest {
     @Test
     void getName_shouldReturnUserName() {
         // arrange
-        User user = new User(1L, "John Doe", "john@example.com", "password123", Role.USER);
+        User user = new User(1L, "john@example.com", "password123", Role.USER, "John Doe");
 
         // act
         String actualName = user.getName();
@@ -26,7 +26,7 @@ class UserTest {
     @Test
     void getEmail_shouldReturnUserEmail() {
         // arrange
-        User user = new User(1L, "John Doe", "john@example.com", "password123", Role.USER);
+        User user = new User(1L, "john@example.com", "password123", Role.USER, "John Doe");
 
         // act
         String actualEmail = user.getEmail();
@@ -38,7 +38,7 @@ class UserTest {
     @Test
     void setPassword_shouldChangeUserPassword() {
         // arrange
-        User user = new User(1L, "John Doe", "john@example.com", "password123", Role.TRAINER);
+        User user = new User(1L, "John Doe", "john@example.com", Role.TRAINER, "password123");
 
         // act
         user.setPassword("newPassword456");
@@ -51,7 +51,7 @@ class UserTest {
     @Test
     void getId_shouldReturnUserId() {
         // arrange
-        User user = new User(1L, "John Doe", "john@example.com", "password123", Role.ADMIN);
+        User user = new User(1L, "John Doe", "john@example.com", Role.ADMIN, "password123");
 
         // act
         Long actualId = user.getId();
@@ -63,7 +63,7 @@ class UserTest {
     @Test
     void convert_shouldConvertUserEntityToUser() {
         // Arrange
-        UserEntity userEntity = new UserEntity(1L, "john", "john@example.com", "password123", Role.USER);
+        UserEntity userEntity = new UserEntity(1L, "john@example.com", "password123", Role.USER, "john");
 
         // Act
         User user = UserConverter.convert(userEntity);
@@ -71,8 +71,8 @@ class UserTest {
         // Assert
         assertNotNull(user);
         assertEquals(1L, user.getId());
-        assertEquals("john", user.getName());
         assertEquals("john@example.com", user.getEmail());
         assertEquals(Role.USER, user.getRole());
+        assertEquals("john", user.getName());
     }
 }

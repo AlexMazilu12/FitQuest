@@ -31,10 +31,10 @@ class UpdateUserUseCaseImplTest {
     @Test
     void updateUser_shouldUpdateUser() {
         // Arrange
-        UpdateUserRequest request = new UpdateUserRequest(1L, "john_updated", "john_updated@example.com", Role.TRAINER);
-        UserEntity existingUser = new UserEntity(1L, "john", "john@example.com", "password123", Role.USER);
+        UpdateUserRequest request = new UpdateUserRequest(1L, "john_updated@example.com", Role.TRAINER, "john_updated");
+        UserEntity existingUser = new UserEntity(1L, "john@example.com", "password123", Role.USER, "john");
         when(userRepository.findById(1L)).thenReturn(Optional.of(existingUser));
-        when(userRepository.save(any(UserEntity.class))).thenReturn(existingUser);
+        when(userRepository.save(any(UserEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         // Act
         updateUserUseCaseImpl.updateUser(request);
@@ -48,7 +48,7 @@ class UpdateUserUseCaseImplTest {
     @Test
     void updateUser_shouldThrowExceptionIfUserNotFound() {
         // Arrange
-        UpdateUserRequest request = new UpdateUserRequest(1L, "john_updated", "john_updated@example.com", Role.TRAINER);
+        UpdateUserRequest request = new UpdateUserRequest(1L, "john_updated@example.com", Role.TRAINER, "john_updated");
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
         // Act & Assert

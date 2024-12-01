@@ -46,10 +46,13 @@ public class AuthenticationService extends DefaultOAuth2UserService{
 
         Role role = request.getRole() != null ? request.getRole() : Role.USER;
 
+        String name = request.getName() != null ? request.getName() : "Default Name";
+
         User tempUser = User.builder()
                 .email(request.getEmail())
                 .password(request.getPassword())
                 .role(role)
+                .name(request.getName())
                 .build();
 
         saveNewUser(tempUser);
@@ -62,6 +65,7 @@ public class AuthenticationService extends DefaultOAuth2UserService{
                 .email(request.getEmail())
                 .password(encodedPassword)
                 .role(request.getRole())
+                .name(request.getName())
                 .build();
 
         return userRepository.save(newUser);

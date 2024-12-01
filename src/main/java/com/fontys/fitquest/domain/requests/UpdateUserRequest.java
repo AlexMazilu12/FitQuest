@@ -13,8 +13,10 @@ import org.jetbrains.annotations.NotNull;
 @AllArgsConstructor
 public class UpdateUserRequest {
     private Long id;
+
     @NotNull
     private String email;
 
     private Role role;
+    private String name;
 }

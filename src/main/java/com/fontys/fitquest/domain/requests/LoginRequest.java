@@ -1,4 +1,5 @@
 package com.fontys.fitquest.domain.requests;
+import com.fontys.fitquest.domain.Role;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,5 +15,6 @@ public class LoginRequest {
     private String email;
     @NotNull
     private String password;
+    private Role role;
 }
 

@@ -44,10 +44,12 @@ public class AuthenticationService extends DefaultOAuth2UserService{
             throw new UserAlreadyExistsException();
         }
 
+        Role role = request.getRole() != null ? request.getRole() : Role.USER;
+
         User tempUser = User.builder()
                 .email(request.getEmail())
                 .password(request.getPassword())
-                .role(Role.USER)
+                .role(role)
                 .build();
 
         saveNewUser(tempUser);
@@ -59,7 +61,7 @@ public class AuthenticationService extends DefaultOAuth2UserService{
         UserEntity newUser = UserEntity.builder()
                 .email(request.getEmail())
                 .password(encodedPassword)
-                .role(Role.USER)
+                .role(request.getRole())
                 .build();
 
         return userRepository.save(newUser);

@@ -21,13 +21,7 @@ public class GetAllWorkoutsUseCaseImpl implements GetAllWorkoutsUseCase {
     public GetAllWorkoutsResponse getAllWorkouts(GetAllWorkoutsRequest request) {
         List<WorkoutPlanEntity> workoutPlans = workoutPlanRepository.findAll();
         List<WorkoutPlan> workoutPlanList = workoutPlans.stream()
-                .map(workoutPlan -> new WorkoutPlan(
-                        workoutPlan.getId(),
-                        workoutPlan.getUserId(),
-                        workoutPlan.getTitle(),
-                        workoutPlan.getDescription(),
-                        workoutPlan.getCreatedAt(),
-                        workoutPlan.getUpdatedAt()))
+                .map(WorkoutConverter::convert)
                 .collect(Collectors.toList());
 
         return GetAllWorkoutsResponse.builder()

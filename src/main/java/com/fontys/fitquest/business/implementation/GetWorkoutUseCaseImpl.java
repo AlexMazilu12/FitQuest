@@ -25,16 +25,10 @@ public class GetWorkoutUseCaseImpl implements GetWorkoutUseCase {
             throw new InvalidWorkoutPlanException("Workout plan not found");
         }
 
-        WorkoutPlanEntity workoutPlan = optionalWorkoutPlan.get();
+        WorkoutPlan workoutPlan = WorkoutConverter.convert(optionalWorkoutPlan.get());
 
         return GetWorkoutResponse.builder()
-                .workoutPlan(new WorkoutPlan(
-                        workoutPlan.getId(),
-                        workoutPlan.getUserId(),
-                        workoutPlan.getTitle(),
-                        workoutPlan.getDescription(),
-                        workoutPlan.getCreatedAt(),
-                        workoutPlan.getUpdatedAt()))
+                .workoutPlan(workoutPlan)
                 .build();
     }
 }

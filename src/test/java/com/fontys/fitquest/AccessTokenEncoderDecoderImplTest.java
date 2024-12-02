@@ -4,23 +4,18 @@ import com.fontys.fitquest.business.exception.InvalidAccessTokenException;
 import com.fontys.fitquest.configuration.token.AccessToken;
 import com.fontys.fitquest.configuration.token.impl.AccessTokenEncoderDecoderImpl;
 import com.fontys.fitquest.domain.Role;
-import io.jsonwebtoken.security.Keys;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.security.Key;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccessTokenEncoderDecoderImplTest {
 
     private AccessTokenEncoderDecoderImpl encoderDecoder;
-    private Key key;
 
     @BeforeEach
     void setUp() {
         String secretKey = "mysecretkeymysecretkeymysecretkeymysecretkey";
-        key = Keys.hmacShaKeyFor(secretKey.getBytes());
         encoderDecoder = new AccessTokenEncoderDecoderImpl(secretKey);
     }
 

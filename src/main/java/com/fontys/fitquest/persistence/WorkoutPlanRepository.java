@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface WorkoutPlanRepository extends JpaRepository<WorkoutPlanEntity, Long> {
     boolean existsByUserIdAndTitle(int userId, String title);
-    Optional<WorkoutPlanEntity> findById(Long Id);
+    Optional<WorkoutPlanEntity> findById(Long id);
 }

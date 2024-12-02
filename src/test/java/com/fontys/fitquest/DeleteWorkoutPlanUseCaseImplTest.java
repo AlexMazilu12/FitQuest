@@ -52,9 +52,8 @@ class DeleteWorkoutPlanUseCaseImplTest {
         long workoutId = 1L;
         when(workoutPlanRepository.findById(workoutId)).thenReturn(Optional.empty());
 
-        // Act & Assert
-        assertThrows(InvalidWorkoutPlanException.class, () -> {
-            deleteWorkoutPlanUseCase.deleteWorkoutPlan(new DeleteWorkoutPlanRequest(workoutId, 0));
-        });
+// Act & Assert
+        DeleteWorkoutPlanRequest request = new DeleteWorkoutPlanRequest(workoutId, 0);
+        assertThrows(InvalidWorkoutPlanException.class, () -> deleteWorkoutPlanUseCase.deleteWorkoutPlan(request));
     }
 }

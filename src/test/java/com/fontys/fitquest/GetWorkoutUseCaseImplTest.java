@@ -53,8 +53,7 @@ class GetWorkoutUseCaseImplTest {
         when(workoutPlanRepository.findById(workoutId)).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThrows(InvalidWorkoutPlanException.class, () -> {
-            getWorkoutUseCase.getWorkout(new GetWorkoutRequest(workoutId));
-        });
+        GetWorkoutRequest request = new GetWorkoutRequest(workoutId);
+        assertThrows(InvalidWorkoutPlanException.class, () -> getWorkoutUseCase.getWorkout(request));
     }
 }

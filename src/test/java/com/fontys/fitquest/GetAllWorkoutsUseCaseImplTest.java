@@ -11,8 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -36,7 +35,7 @@ class GetAllWorkoutsUseCaseImplTest {
         // Arrange
         WorkoutPlanEntity workoutPlanEntity = new WorkoutPlanEntity();
         workoutPlanEntity.setId(1L);
-        when(workoutPlanRepository.findAll()).thenReturn(Stream.of(workoutPlanEntity).collect(Collectors.toList()));
+        when(workoutPlanRepository.findAll()).thenReturn(Collections.singletonList(workoutPlanEntity));
 
         // Act
         GetAllWorkoutsResponse response = getAllWorkoutsUseCase.getAllWorkouts(new GetAllWorkoutsRequest());

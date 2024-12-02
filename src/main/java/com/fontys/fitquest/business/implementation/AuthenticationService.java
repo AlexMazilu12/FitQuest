@@ -46,13 +46,13 @@ public class AuthenticationService extends DefaultOAuth2UserService{
 
         Role role = request.getRole() != null ? request.getRole() : Role.USER;
 
-        String name = request.getName() != null ? request.getName() : "Default Name";
+        String name = request.getName() != null ? request.getName() : "Guest";
 
         User tempUser = User.builder()
                 .email(request.getEmail())
                 .password(request.getPassword())
                 .role(role)
-                .name(request.getName())
+                .name(name)
                 .build();
 
         saveNewUser(tempUser);
@@ -76,10 +76,13 @@ public class AuthenticationService extends DefaultOAuth2UserService{
     }
 
     private String generateAccessToken(Optional<User> user) {
-        Long userId = user.get().getId();
-        Role role = user.get().getRole();
-
-        return accessTokenEncoder.encode(
-                new AccessTokenImpl(user.get().getEmail(), userId, role));
+        if (user.isPresent()) {
+            Long userId = user.get().getId();
+            Role role = user.get().getRole();
+            return accessTokenEncoder.encode(
+                    new AccessTokenImpl(user.get().getEmail(), userId, role));
+        } else {
+            throw new InvalidCredentialsException();
+        }
     }
 }

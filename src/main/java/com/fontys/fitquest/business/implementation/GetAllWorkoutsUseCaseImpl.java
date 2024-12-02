@@ -9,6 +9,7 @@ import com.fontys.fitquest.persistence.entity.WorkoutPlanEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,7 @@ public class GetAllWorkoutsUseCaseImpl implements GetAllWorkoutsUseCase {
         List<WorkoutPlanEntity> workoutPlans = workoutPlanRepository.findAll();
         List<WorkoutPlan> workoutPlanList = workoutPlans.stream()
                 .map(WorkoutConverter::convert)
-                .collect(Collectors.toList());
+                .collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
 
         return GetAllWorkoutsResponse.builder()
                 .workoutPlans(workoutPlanList)

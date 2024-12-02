@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetAllExercisesRequest {
-    // Add any necessary fields if required
+    private String email;
 }

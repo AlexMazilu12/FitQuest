@@ -13,6 +13,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 @EnableWebSecurity
 @EnableMethodSecurity(jsr250Enabled = true)
 @Configuration
@@ -37,12 +38,14 @@ public class WebSecurityConfig {
                         registry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/auth/**", "/tokens").permitAll()
                                 .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()
+                                .requestMatchers("/exercises/**", "/users/").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(configure -> configure.authenticationEntryPoint(authenticationEntryPoint))
                 .addFilterBefore(authenticationRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
+
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return new Http403ForbiddenEntryPoint();

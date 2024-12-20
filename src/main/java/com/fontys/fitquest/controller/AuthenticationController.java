@@ -1,6 +1,6 @@
 package com.fontys.fitquest.controller;
 
-import com.fontys.fitquest.business.implementation.AuthenticationService;
+import com.fontys.fitquest.business.service.AuthenticationService;
 import com.fontys.fitquest.domain.requests.LoginRequest;
 import com.fontys.fitquest.domain.responses.LoginResponse;
 import jakarta.validation.Valid;

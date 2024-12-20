@@ -1,7 +1,7 @@
 package com.fontys.fitquest.controller;
 
 import com.fontys.fitquest.business.*;
-import com.fontys.fitquest.domain.*;
+import com.fontys.fitquest.domain.User;
 import com.fontys.fitquest.domain.requests.CreateUserRequest;
 import com.fontys.fitquest.domain.requests.GetAllUsersRequest;
 import com.fontys.fitquest.domain.requests.UpdateUserRequest;
@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -59,5 +60,13 @@ public class UsersController {
         request.setId(id);
         updateUserUseCase.updateUser(request);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<User>> getAllUsers() {
+        GetAllUsersRequest request = GetAllUsersRequest.builder().build();
+        GetAllUsersResponse response = getUsersUseCase.getUsers(request);
+        List<User> users = response.getUsers();
+        return ResponseEntity.ok(users);
     }
 }

@@ -7,12 +7,14 @@ import com.fontys.fitquest.domain.responses.CreateUserResponse;
 import com.fontys.fitquest.persistence.UserRepository;
 import com.fontys.fitquest.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class CreateUserUseCaseImpl implements CreateUserUseCase {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public CreateUserResponse createUser(CreateUserRequest request) {
@@ -26,14 +28,16 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
                 .userId(savedUser.getId())
                 .email(savedUser.getEmail())
                 .role(savedUser.getRole().toString())
+                .name(savedUser.getName())
                 .build();
     }
 
     private UserEntity saveNewUser(CreateUserRequest request) {
         UserEntity newUser = UserEntity.builder()
                 .email(request.getEmail())
-                .password(request.getPassword())
+                .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
+                .name(request.getName())
                 .build();
 
         return userRepository.save(newUser);

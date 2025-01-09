@@ -41,10 +41,9 @@ sonar {
         property "sonar.qualitygate.wait", true
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.coverage.jacoco.xmlReportPaths", "build/jacoco/jacocoTestReport.xml"
-        property "sonar.exclusions","**/domain/requests/**, **/domain/responses/**"
+        property "sonar.exclusions","**/domain/requests/**, **/domain/responses/**, **/controller/**"
     }
 }
-sonar.exclusions="**/domain/requests/**, **/domain/responses/**, **/controller/**"
 
 group = 'com.fontys'
 version = '0.0.1-SNAPSHOT'

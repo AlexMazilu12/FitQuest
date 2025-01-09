@@ -3,6 +3,7 @@ package com.fontys.fitquest.controller;
 import com.fontys.fitquest.business.*;
 import com.fontys.fitquest.domain.WorkoutPlan;
 import com.fontys.fitquest.domain.requests.*;
+import com.fontys.fitquest.domain.responses.AddExerciseToWorkoutResponse;
 import com.fontys.fitquest.domain.responses.CreateWorkoutPlanResponse;
 import com.fontys.fitquest.domain.responses.GetAllWorkoutsResponse;
 import com.fontys.fitquest.domain.responses.GetWorkoutResponse;
@@ -21,6 +22,7 @@ public class WorkoutController {
     private final DeleteWorkoutPlanUseCase deleteWorkoutPlanUseCase;
     private final CreateWorkoutPlanUseCase createWorkoutPlanUseCase;
     private final UpdateWorkoutPlanUseCase updateWorkoutPlanUseCase;
+    private final AddExerciseToWorkoutUseCase addExerciseToWorkoutUseCase;
 
     @GetMapping("{id}")
     public ResponseEntity<WorkoutPlan> getWorkout(@PathVariable(value = "id") final long id) {
@@ -59,4 +61,13 @@ public class WorkoutController {
         updateWorkoutPlanUseCase.updateWorkoutPlan(request);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("{id}/exercises")
+    public ResponseEntity<AddExerciseToWorkoutResponse> addExerciseToWorkout(@PathVariable("id") long workoutPlanId,
+                                                                             @RequestBody @Valid AddExerciseToWorkoutRequest request) {
+        request.setWorkoutPlanId(workoutPlanId);
+        AddExerciseToWorkoutResponse response = addExerciseToWorkoutUseCase.addExerciseToWorkout(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
 }

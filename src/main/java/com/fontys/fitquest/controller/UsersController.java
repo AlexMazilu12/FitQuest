@@ -69,4 +69,10 @@ public class UsersController {
         List<User> users = response.getUsers();
         return ResponseEntity.ok(users);
     }
+
+    @GetMapping("/trainers")
+    public ResponseEntity<GetAllUsersResponse> getTrainers() {
+        GetAllUsersResponse response = getUsersUseCase.getUsers(new GetAllUsersRequest());
+        return ResponseEntity.ok(response);
+    }
 }

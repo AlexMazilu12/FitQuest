@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -23,6 +24,9 @@ class CreateUserUseCaseImplTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     @InjectMocks
     private CreateUserUseCaseImpl createUserUseCaseImpl;
 
@@ -33,6 +37,7 @@ class CreateUserUseCaseImplTest {
         UserEntity savedUser = new UserEntity(1L, "john@example.com", "password123", Role.USER, "john");
         when(userRepository.existsByEmail(request.getEmail())).thenReturn(false);
         when(userRepository.save(any(UserEntity.class))).thenReturn(savedUser);
+        when(passwordEncoder.encode(request.getPassword())).thenReturn("encodedPassword123");
 
         // Act
         CreateUserResponse response = createUserUseCaseImpl.createUser(request);

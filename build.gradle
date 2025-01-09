@@ -44,6 +44,7 @@ sonar {
         property "sonar.exclusions","**/domain/requests/**, **/domain/responses/**"
     }
 }
+sonar.exclusions="**/domain/requests/**, **/domain/responses/**, **/controller/**"
 
 group = 'com.fontys'
 version = '0.0.1-SNAPSHOT'

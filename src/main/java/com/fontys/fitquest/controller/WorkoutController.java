@@ -1,17 +1,17 @@
 package com.fontys.fitquest.controller;
 
 import com.fontys.fitquest.business.*;
+import com.fontys.fitquest.domain.Exercise;
 import com.fontys.fitquest.domain.WorkoutPlan;
 import com.fontys.fitquest.domain.requests.*;
-import com.fontys.fitquest.domain.responses.AddExerciseToWorkoutResponse;
-import com.fontys.fitquest.domain.responses.CreateWorkoutPlanResponse;
-import com.fontys.fitquest.domain.responses.GetAllWorkoutsResponse;
-import com.fontys.fitquest.domain.responses.GetWorkoutResponse;
+import com.fontys.fitquest.domain.responses.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/workouts")
@@ -23,6 +23,7 @@ public class WorkoutController {
     private final CreateWorkoutPlanUseCase createWorkoutPlanUseCase;
     private final UpdateWorkoutPlanUseCase updateWorkoutPlanUseCase;
     private final AddExerciseToWorkoutUseCase addExerciseToWorkoutUseCase;
+    private final GetExercisesForWorkoutUseCase getExercisesForWorkoutUseCase;
 
     @GetMapping("{id}")
     public ResponseEntity<WorkoutPlan> getWorkout(@PathVariable(value = "id") final long id) {
@@ -70,4 +71,10 @@ public class WorkoutController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @GetMapping("{id}/exercises")
+    public ResponseEntity<GetExercisesForWorkoutResponse> getExercisesForWorkout(@PathVariable("id") Long workoutPlanId) {
+        GetExercisesForWorkoutRequest request = new GetExercisesForWorkoutRequest(workoutPlanId);
+        GetExercisesForWorkoutResponse response = getExercisesForWorkoutUseCase.getExercisesForWorkout(request);
+        return ResponseEntity.ok(response);
+    }
 }

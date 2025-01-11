@@ -1,10 +1,8 @@
 package com.fontys.fitquest.business;
 
-import com.fontys.fitquest.domain.Exercise;
 import com.fontys.fitquest.domain.requests.GetExercisesForWorkoutRequest;
-
-import java.util.List;
+import com.fontys.fitquest.domain.responses.GetExercisesForWorkoutResponse;
 
 public interface GetExercisesForWorkoutUseCase {
-    List<Exercise> getExercisesForWorkout(GetExercisesForWorkoutRequest request);
+    GetExercisesForWorkoutResponse getExercisesForWorkout(GetExercisesForWorkoutRequest request);
 }

@@ -64,6 +64,9 @@ public class WorkoutController {
     public ResponseEntity<AddExerciseToWorkoutResponse> addExerciseToWorkout(@PathVariable("id") long workoutPlanId,
                                                                              @RequestBody @Valid AddExerciseToWorkoutRequest request) {
         request.setWorkoutPlanId(workoutPlanId);
+        if (exerciseAlreadyExists(workoutPlanId, request.getExercise().getId())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        }
         AddExerciseToWorkoutResponse response = addExerciseToWorkoutUseCase.addExerciseToWorkout(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -73,5 +76,12 @@ public class WorkoutController {
         GetExercisesForWorkoutRequest request = new GetExercisesForWorkoutRequest(workoutPlanId);
         GetExercisesForWorkoutResponse response = getExercisesForWorkoutUseCase.getExercisesForWorkout(request);
         return ResponseEntity.ok(response);
+    }
+
+    private boolean exerciseAlreadyExists(long workoutPlanId, int exerciseId) {
+        GetExercisesForWorkoutRequest request = new GetExercisesForWorkoutRequest(workoutPlanId);
+        GetExercisesForWorkoutResponse response = getExercisesForWorkoutUseCase.getExercisesForWorkout(request);
+        return response.getExercises().stream()
+                .anyMatch(exercise -> exercise.getId() == exerciseId);
     }
 }

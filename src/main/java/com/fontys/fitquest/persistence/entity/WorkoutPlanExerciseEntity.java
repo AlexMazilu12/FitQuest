@@ -25,8 +25,4 @@ public class WorkoutPlanExerciseEntity {
     private int sets;
     private int reps;
     private Integer restTime;
-
-    public Long getExerciseId() {
-        return (long) exercise.getId();
-    }
 }

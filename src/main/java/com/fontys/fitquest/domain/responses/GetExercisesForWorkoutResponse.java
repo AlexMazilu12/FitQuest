@@ -1,6 +1,6 @@
 package com.fontys.fitquest.domain.responses;
 
-import com.fontys.fitquest.domain.Exercise;
+import com.fontys.fitquest.domain.WorkoutExercise;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,5 +13,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetExercisesForWorkoutResponse {
-    private List<Exercise> exercises;
+    private List<WorkoutExercise> exercises;
 }

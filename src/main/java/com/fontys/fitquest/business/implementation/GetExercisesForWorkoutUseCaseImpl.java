@@ -1,7 +1,7 @@
 package com.fontys.fitquest.business.implementation;
 
 import com.fontys.fitquest.business.GetExercisesForWorkoutUseCase;
-import com.fontys.fitquest.domain.Exercise;
+import com.fontys.fitquest.domain.WorkoutExercise;
 import com.fontys.fitquest.domain.requests.GetExercisesForWorkoutRequest;
 import com.fontys.fitquest.domain.responses.GetExercisesForWorkoutResponse;
 import com.fontys.fitquest.persistence.WorkoutPlanExerciseRepository;
@@ -20,7 +20,7 @@ public class GetExercisesForWorkoutUseCaseImpl implements GetExercisesForWorkout
     @Override
     public GetExercisesForWorkoutResponse getExercisesForWorkout(GetExercisesForWorkoutRequest request) {
         List<WorkoutPlanExerciseEntity> workoutPlanExerciseEntities = workoutPlanExerciseRepository.findByWorkoutPlanId(request.getWorkoutPlanId());
-        List<Exercise> exercises = workoutPlanExerciseEntities.stream()
+        List<WorkoutExercise> exercises = workoutPlanExerciseEntities.stream()
                 .map(this::convertToDomain)
                 .collect(Collectors.toList());
         return GetExercisesForWorkoutResponse.builder()
@@ -28,13 +28,15 @@ public class GetExercisesForWorkoutUseCaseImpl implements GetExercisesForWorkout
                 .build();
     }
 
-    private Exercise convertToDomain(WorkoutPlanExerciseEntity workoutPlanExerciseEntity) {
-        return Exercise.builder()
-                .id(workoutPlanExerciseEntity.getExercise().getId())
+    private WorkoutExercise convertToDomain(WorkoutPlanExerciseEntity workoutPlanExerciseEntity) {
+        return WorkoutExercise.builder()
+                .id(workoutPlanExerciseEntity.getExercise().getId()) // Ensure the id is of type Long
                 .name(workoutPlanExerciseEntity.getExercise().getName())
                 .muscleGroup(workoutPlanExerciseEntity.getExercise().getMuscleGroup())
                 .description(workoutPlanExerciseEntity.getExercise().getDescription())
-                .createdAt(workoutPlanExerciseEntity.getExercise().getCreatedAt())
+                .sets(workoutPlanExerciseEntity.getSets())
+                .reps(workoutPlanExerciseEntity.getReps())
+                .restTime(workoutPlanExerciseEntity.getRestTime())
                 .build();
     }
 }

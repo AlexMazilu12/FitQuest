@@ -4,6 +4,6 @@ CREATE TABLE trainer_user_assignments (
                                           user_id BIGINT NOT NULL, -- References users(id) where role_id = 2 (user)
                                           price DECIMAL(10, 2) NOT NULL, -- Price agreed for coaching
                                           assigned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- When the assignment happened
-                                          FOREIGN KEY (trainer_id) REFERENCES users(id) ON DELETE RESTRICT,
-                                          FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT
+                                          FOREIGN KEY (trainer_id) REFERENCES users(id) ON DELETE CASCADE   ,
+                                          FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

@@ -1,7 +1,6 @@
 package com.fontys.fitquest.controller;
 
 import com.fontys.fitquest.business.*;
-import com.fontys.fitquest.domain.Exercise;
 import com.fontys.fitquest.domain.WorkoutPlan;
 import com.fontys.fitquest.domain.requests.*;
 import com.fontys.fitquest.domain.responses.*;
@@ -10,8 +9,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/workouts")

@@ -1,6 +1,7 @@
 package com.fontys.fitquest.controller;
 
 import com.fontys.fitquest.business.CreateBookingRequestUseCase;
+import com.fontys.fitquest.business.DeleteBookingRequestUseCase;
 import com.fontys.fitquest.business.GetBookingRequestsByUserUseCase;
 import com.fontys.fitquest.domain.requests.CreateBookingRequest;
 import com.fontys.fitquest.domain.responses.GetBookingRequestsByUserResponse;
@@ -14,10 +15,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/booking-requests")
 @AllArgsConstructor
-public class GetBookingRequestByUserController {
+public class BookingRequestByUserController {
 
     private final CreateBookingRequestUseCase createBookingRequestUseCase;
     private final GetBookingRequestsByUserUseCase getBookingRequestsByUserUseCase;
+    private final DeleteBookingRequestUseCase deleteBookingRequestUseCase;
 
     @PostMapping
     public ResponseEntity<CreateBookingResponse> createBookingRequest(@RequestBody CreateBookingRequest request) {
@@ -31,5 +33,11 @@ public class GetBookingRequestByUserController {
             @RequestParam(required = false) Long trainerId) {
         List<GetBookingRequestsByUserResponse> responses = getBookingRequestsByUserUseCase.getBookingRequestsByUserOrTrainer(userId, trainerId);
         return ResponseEntity.ok(responses);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBookingRequest(@PathVariable Long id) {
+        deleteBookingRequestUseCase.deleteBookingRequest(id);
+        return ResponseEntity.noContent().build();
     }
 }

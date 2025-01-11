@@ -1,9 +1,9 @@
-package com.fontys.fitquest;
+package com.fontys.fitquest.business;
 
 import com.fontys.fitquest.business.exception.InvalidWorkoutPlanException;
-import com.fontys.fitquest.business.implementation.DeleteWorkoutPlanUseCaseImpl;
-import com.fontys.fitquest.domain.requests.DeleteWorkoutPlanRequest;
-import com.fontys.fitquest.domain.responses.DeleteWorkoutPlanResponse;
+import com.fontys.fitquest.business.implementation.GetWorkoutUseCaseImpl;
+import com.fontys.fitquest.domain.requests.GetWorkoutRequest;
+import com.fontys.fitquest.domain.responses.GetWorkoutResponse;
 import com.fontys.fitquest.persistence.WorkoutPlanRepository;
 import com.fontys.fitquest.persistence.entity.WorkoutPlanEntity;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,13 +17,13 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-class DeleteWorkoutPlanUseCaseImplTest {
+class GetWorkoutUseCaseImplTest {
 
     @Mock
     private WorkoutPlanRepository workoutPlanRepository;
 
     @InjectMocks
-    private DeleteWorkoutPlanUseCaseImpl deleteWorkoutPlanUseCase;
+    private GetWorkoutUseCaseImpl getWorkoutUseCase;
 
     @BeforeEach
     void setUp() {
@@ -31,7 +31,7 @@ class DeleteWorkoutPlanUseCaseImplTest {
     }
 
     @Test
-    void deleteWorkoutPlan_validId_returnsResponse() {
+    void getWorkout_validId_returnsWorkout() {
         // Arrange
         long workoutId = 1L;
         WorkoutPlanEntity workoutPlanEntity = new WorkoutPlanEntity();
@@ -39,21 +39,21 @@ class DeleteWorkoutPlanUseCaseImplTest {
         when(workoutPlanRepository.findById(workoutId)).thenReturn(Optional.of(workoutPlanEntity));
 
         // Act
-        DeleteWorkoutPlanResponse response = deleteWorkoutPlanUseCase.deleteWorkoutPlan(new DeleteWorkoutPlanRequest(workoutId, 0));
+        GetWorkoutResponse response = getWorkoutUseCase.getWorkout(new GetWorkoutRequest(workoutId));
 
         // Assert
         assertNotNull(response);
-        assertTrue(response.isSuccess());
+        assertEquals(workoutId, response.getWorkoutPlan().getId());
     }
 
     @Test
-    void deleteWorkoutPlan_invalidId_throwsException() {
+    void getWorkout_invalidId_throwsException() {
         // Arrange
         long workoutId = 1L;
         when(workoutPlanRepository.findById(workoutId)).thenReturn(Optional.empty());
 
-// Act & Assert
-        DeleteWorkoutPlanRequest request = new DeleteWorkoutPlanRequest(workoutId, 0);
-        assertThrows(InvalidWorkoutPlanException.class, () -> deleteWorkoutPlanUseCase.deleteWorkoutPlan(request));
+        // Act & Assert
+        GetWorkoutRequest request = new GetWorkoutRequest(workoutId);
+        assertThrows(InvalidWorkoutPlanException.class, () -> getWorkoutUseCase.getWorkout(request));
     }
 }

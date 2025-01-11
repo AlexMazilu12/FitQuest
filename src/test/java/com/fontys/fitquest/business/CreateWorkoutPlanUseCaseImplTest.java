@@ -1,4 +1,4 @@
-package com.fontys.fitquest;
+package com.fontys.fitquest.business;
 
 import com.fontys.fitquest.business.exception.WorkoutPlanTitleAlreadyExistsException;
 import com.fontys.fitquest.business.implementation.CreateWorkoutPlanUseCaseImpl;

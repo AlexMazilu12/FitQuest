@@ -1,4 +1,4 @@
-package com.fontys.fitquest;
+package com.fontys.fitquest.business;
 
 import com.fontys.fitquest.business.implementation.DeleteUserUseCaseImpl;
 import com.fontys.fitquest.persistence.UserRepository;

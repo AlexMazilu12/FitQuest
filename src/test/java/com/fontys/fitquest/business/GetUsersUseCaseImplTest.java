@@ -1,4 +1,4 @@
-package com.fontys.fitquest;
+package com.fontys.fitquest.business;
 
 import com.fontys.fitquest.business.implementation.GetUsersUseCaseImpl;
 import com.fontys.fitquest.domain.Role;

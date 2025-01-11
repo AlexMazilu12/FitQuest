@@ -1,8 +1,7 @@
-package com.fontys.fitquest;
+package com.fontys.fitquest.business.service;
 
 import com.fontys.fitquest.business.exception.InvalidCredentialsException;
 import com.fontys.fitquest.business.exception.UserAlreadyExistsException;
-import com.fontys.fitquest.business.service.AuthenticationService;
 import com.fontys.fitquest.configuration.token.AccessTokenEncoder;
 import com.fontys.fitquest.domain.Role;
 import com.fontys.fitquest.domain.requests.LoginRequest;

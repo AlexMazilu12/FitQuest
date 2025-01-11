@@ -1,4 +1,4 @@
-package com.fontys.fitquest;
+package com.fontys.fitquest.business;
 
 import com.fontys.fitquest.business.exception.InvalidUserException;
 import com.fontys.fitquest.business.implementation.UpdateUserUseCaseImpl;

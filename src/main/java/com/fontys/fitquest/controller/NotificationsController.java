@@ -1,6 +1,6 @@
 package com.fontys.fitquest.controller;
 
-import com.fontys.fitquest.business.service.MessageService;
+import com.fontys.fitquest.service.MessageService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

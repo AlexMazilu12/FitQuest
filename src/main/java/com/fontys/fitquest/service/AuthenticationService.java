@@ -1,5 +1,5 @@
 // AuthenticationService.java
-package com.fontys.fitquest.business.service;
+package com.fontys.fitquest.service;
 
 import com.fontys.fitquest.business.exception.InvalidCredentialsException;
 import com.fontys.fitquest.business.exception.UserAlreadyExistsException;

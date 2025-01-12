@@ -1,4 +1,4 @@
-package com.fontys.fitquest.business.service;
+package com.fontys.fitquest.service;
 
 import com.fontys.fitquest.controller.NotificationMessage;
 import org.springframework.stereotype.Service;

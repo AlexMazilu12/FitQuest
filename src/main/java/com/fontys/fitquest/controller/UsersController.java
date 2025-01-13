@@ -67,7 +67,7 @@ public class UsersController {
         boolean isAdmin = userDetails.getAuthorities().stream()
                 .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
 
-        if (isAdmin || userDetails.getUsername().equals(String.valueOf(id))) {
+        if (isAdmin || userDetails.getUsername().equals(request.getEmail())) {
             request.setId(id);
             updateUserUseCase.updateUser(request);
             return ResponseEntity.noContent().build();

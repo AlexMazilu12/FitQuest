@@ -3,9 +3,11 @@ package com.fontys.fitquest.domain.requests;
 import com.fontys.fitquest.persistence.entity.ExerciseEntity;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class AddExerciseToWorkoutRequest {
     private long workoutPlanId;
 

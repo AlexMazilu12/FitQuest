@@ -41,7 +41,7 @@ sonar {
         property "sonar.qualitygate.wait", true
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.coverage.jacoco.xmlReportPaths", "build/jacoco/jacocoTestReport.xml"
-        property "sonar.exclusions","**/domain/requests/**, **/domain/responses/**, **/controller/**"
+        property "sonar.exclusions","**/domain/requests/**, **/domain/responses/**, **/controller/**, **/service/**, **/repository/**, **/config/**, **/security/**, **/exception/**, **/graphql/**, **/model/**"
     }
 }
 

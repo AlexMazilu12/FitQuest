@@ -1,7 +1,10 @@
 package com.fontys.fitquest.domain.requests;
 
+import lombok.Builder;
+
 import java.math.BigDecimal;
 
+@Builder
 public class CreateUserTrainerRelationRequest {
     private Long trainerId;
     private Long userId;

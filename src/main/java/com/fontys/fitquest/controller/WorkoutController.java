@@ -25,6 +25,7 @@ public class WorkoutController {
     private final AddExerciseToWorkoutUseCase addExerciseToWorkoutUseCase;
     private final GetExercisesForWorkoutUseCase getExercisesForWorkoutUseCase;
     private final UpdateExerciseInWorkoutUseCase updateExerciseInWorkoutUseCase;
+    private final DeleteExerciseFromWorkoutUseCase deleteExerciseFromWorkoutUseCase;
 
     @GetMapping("{id}")
     public ResponseEntity<WorkoutPlan> getWorkout(@PathVariable(value = "id") final long id) {
@@ -90,6 +91,15 @@ public class WorkoutController {
         request.setWorkoutPlanId(workoutPlanId);
         request.setExerciseId(exerciseId);
         UpdateExerciseInWorkoutResponse response = updateExerciseInWorkoutUseCase.updateExerciseInWorkout(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("{workoutPlanId}/exercises/{exerciseId}")
+    public ResponseEntity<DeleteExerciseFromWorkoutResponse> deleteExerciseFromWorkout(@PathVariable long workoutPlanId, @PathVariable long exerciseId) {
+        DeleteExerciseFromWorkoutRequest request = new DeleteExerciseFromWorkoutRequest();
+        request.setWorkoutPlanId(workoutPlanId);
+        request.setExerciseId(exerciseId);
+        DeleteExerciseFromWorkoutResponse response = deleteExerciseFromWorkoutUseCase.deleteExerciseFromWorkout(request);
         return ResponseEntity.ok(response);
     }
 

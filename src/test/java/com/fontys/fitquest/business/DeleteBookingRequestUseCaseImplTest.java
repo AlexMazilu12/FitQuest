@@ -10,7 +10,7 @@ import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.verify;
 
-public class DeleteBookingRequestUseCaseImplTest {
+class DeleteBookingRequestUseCaseImplTest {
 
     @Mock
     private BookingRequestRepository repository;

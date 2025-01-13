@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 
-public class DeleteExerciseFromWorkoutUseCaseImplTest {
+class DeleteExerciseFromWorkoutUseCaseImplTest {
 
     @Mock
     private WorkoutPlanExerciseRepository workoutPlanExerciseRepository;

@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-public class AddExerciseToWorkoutUseCaseImplTest {
+class AddExerciseToWorkoutUseCaseImplTest {
 
     @Mock
     private WorkoutPlanExerciseRepository workoutPlanExerciseRepository;
@@ -90,7 +90,7 @@ public class AddExerciseToWorkoutUseCaseImplTest {
     }
 
     @Test
-    public void testAddExerciseToWorkout_WorkoutPlanNotFound() {
+    void testAddExerciseToWorkout_WorkoutPlanNotFound() {
         ExerciseEntity exerciseEntity = ExerciseEntity.builder()
                 .id(1)
                 .build();

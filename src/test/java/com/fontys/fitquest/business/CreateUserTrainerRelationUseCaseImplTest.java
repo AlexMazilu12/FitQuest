@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-public class CreateUserTrainerRelationUseCaseImplTest {
+class CreateUserTrainerRelationUseCaseImplTest {
 
     @Mock
     private TrainerUserAssignmentRepository repository;

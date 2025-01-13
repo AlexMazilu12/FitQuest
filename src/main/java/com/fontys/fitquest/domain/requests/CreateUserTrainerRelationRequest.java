@@ -7,7 +7,6 @@ public class CreateUserTrainerRelationRequest {
     private Long userId;
     private BigDecimal price;
 
-    // Getters
     public Long getTrainerId() {
         return trainerId;
     }

@@ -4,15 +4,18 @@ import com.fontys.fitquest.business.*;
 import com.fontys.fitquest.domain.WorkoutPlan;
 import com.fontys.fitquest.domain.requests.*;
 import com.fontys.fitquest.domain.responses.*;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/workouts")
 @AllArgsConstructor
+@Validated
 public class WorkoutController {
     private final GetWorkoutUseCase getWorkoutUseCase;
     private final GetAllWorkoutsUseCase getAllWorkoutsUseCase;
@@ -80,6 +83,7 @@ public class WorkoutController {
     }
 
     @PutMapping("{workoutPlanId}/exercises/{exerciseId}")
+    @RolesAllowed({"USER", "TRAINER"})
     public ResponseEntity<UpdateExerciseInWorkoutResponse> updateExerciseInWorkout(@PathVariable("workoutPlanId") long workoutPlanId,
                                                                                    @PathVariable("exerciseId") long exerciseId,
                                                                                    @RequestBody @Valid UpdateExerciseInWorkoutRequest request) {

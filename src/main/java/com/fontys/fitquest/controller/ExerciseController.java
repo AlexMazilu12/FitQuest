@@ -6,6 +6,7 @@ import com.fontys.fitquest.domain.responses.*;
 import com.fontys.fitquest.domain.Exercise;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/exercises")
 @AllArgsConstructor
+@Validated
 public class ExerciseController {
     private final GetAllExercisesUseCase getAllExercisesUseCase;
     private final GetExerciseUseCase getExerciseUseCase;

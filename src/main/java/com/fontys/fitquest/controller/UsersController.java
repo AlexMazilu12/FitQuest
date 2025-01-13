@@ -7,10 +7,14 @@ import com.fontys.fitquest.domain.requests.GetAllUsersRequest;
 import com.fontys.fitquest.domain.requests.UpdateUserRequest;
 import com.fontys.fitquest.domain.responses.CreateUserResponse;
 import com.fontys.fitquest.domain.responses.GetAllUsersResponse;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +23,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
+@Validated
 public class UsersController {
     private final GetUserUseCase getUserUseCase;
     private final GetUsersUseCase getUsersUseCase;
@@ -56,13 +61,23 @@ public class UsersController {
 
     @PutMapping("{id}")
     public ResponseEntity<Void> updateUser(@PathVariable("id") long id,
-                                           @RequestBody @Valid UpdateUserRequest request) {
-        request.setId(id);
-        updateUserUseCase.updateUser(request);
-        return ResponseEntity.noContent().build();
+                                           @RequestBody @Valid UpdateUserRequest request,
+                                           Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        boolean isAdmin = userDetails.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+
+        if (isAdmin || userDetails.getUsername().equals(String.valueOf(id))) {
+            request.setId(id);
+            updateUserUseCase.updateUser(request);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
     }
 
     @GetMapping("/all")
+    @RolesAllowed({"TRAINER","ADMIN"})
     public ResponseEntity<List<User>> getAllUsers() {
         GetAllUsersRequest request = GetAllUsersRequest.builder().build();
         GetAllUsersResponse response = getUsersUseCase.getUsers(request);
@@ -70,6 +85,7 @@ public class UsersController {
         return ResponseEntity.ok(users);
     }
 
+    @RolesAllowed({"USER", "ADMIN"})
     @GetMapping("/trainers")
     public ResponseEntity<GetAllUsersResponse> getTrainers() {
         GetAllUsersResponse response = getUsersUseCase.getUsers(new GetAllUsersRequest());

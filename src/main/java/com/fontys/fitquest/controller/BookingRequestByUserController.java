@@ -8,6 +8,7 @@ import com.fontys.fitquest.domain.responses.GetBookingRequestsByUserResponse;
 import com.fontys.fitquest.domain.responses.CreateBookingResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/booking-requests")
 @AllArgsConstructor
+@Validated
 public class BookingRequestByUserController {
 
     private final CreateBookingRequestUseCase createBookingRequestUseCase;

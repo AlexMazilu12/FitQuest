@@ -29,12 +29,12 @@ public class GetExercisesForWorkoutUseCaseImplTest {
     private GetExercisesForWorkoutUseCaseImpl getExercisesForWorkoutUseCase;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testGetExercisesForWorkout() {
+    void testGetExercisesForWorkout() {
         GetExercisesForWorkoutRequest request = new GetExercisesForWorkoutRequest();
         request.setWorkoutPlanId(1L);
 

@@ -26,12 +26,12 @@ public class GetBookingRequestsByUserUseCaseImplTest {
     private GetBookingRequestsByUserUseCaseImpl getBookingRequestsByUserUseCase;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testGetBookingRequestsByUserOrTrainer() {
+    void testGetBookingRequestsByUserOrTrainer() {
         BookingRequestEntity bookingRequest1 = BookingRequestEntity.builder()
                 .id(1L)
                 .userId(1L)

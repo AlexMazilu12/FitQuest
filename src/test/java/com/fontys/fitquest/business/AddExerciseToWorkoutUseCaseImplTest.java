@@ -34,12 +34,12 @@ public class AddExerciseToWorkoutUseCaseImplTest {
     private AddExerciseToWorkoutUseCaseImpl addExerciseToWorkoutUseCase;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testAddExerciseToWorkout() {
+    void testAddExerciseToWorkout() {
         WorkoutPlanEntity workoutPlanEntity = WorkoutPlanEntity.builder()
                 .id(1L)
                 .userId(1)

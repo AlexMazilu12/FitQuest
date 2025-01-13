@@ -19,12 +19,12 @@ public class DeleteBookingRequestUseCaseImplTest {
     private DeleteBookingRequestUseCaseImpl deleteBookingRequestUseCase;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testDeleteBookingRequest() {
+    void testDeleteBookingRequest() {
         Long bookingRequestId = 1L;
 
         deleteBookingRequestUseCase.deleteBookingRequest(bookingRequestId);

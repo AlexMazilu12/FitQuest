@@ -23,12 +23,12 @@ public class DeleteExerciseFromWorkoutUseCaseImplTest {
     private DeleteExerciseFromWorkoutUseCaseImpl deleteExerciseFromWorkoutUseCase;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testDeleteExerciseFromWorkout() {
+    void testDeleteExerciseFromWorkout() {
         DeleteExerciseFromWorkoutRequest request = new DeleteExerciseFromWorkoutRequest();
         request.setWorkoutPlanId(1L);
         request.setExerciseId(1L);

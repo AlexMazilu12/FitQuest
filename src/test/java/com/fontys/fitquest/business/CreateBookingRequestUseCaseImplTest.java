@@ -25,12 +25,12 @@ public class CreateBookingRequestUseCaseImplTest {
     private CreateBookingRequestUseCaseImpl createBookingRequestUseCase;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testCreateBookingRequest() {
+    void testCreateBookingRequest() {
         CreateBookingRequest request = CreateBookingRequest.builder()
                 .userId(1L)
                 .userName("User1")

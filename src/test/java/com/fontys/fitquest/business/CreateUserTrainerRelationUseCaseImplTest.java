@@ -30,12 +30,12 @@ public class CreateUserTrainerRelationUseCaseImplTest {
     private CreateUserTrainerRelationUseCaseImpl createUserTrainerRelationUseCase;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testCreateUserTrainerRelation() {
+    void testCreateUserTrainerRelation() {
         CreateUserTrainerRelationRequest request = CreateUserTrainerRelationRequest.builder()
                 .trainerId(1L)
                 .userId(2L)

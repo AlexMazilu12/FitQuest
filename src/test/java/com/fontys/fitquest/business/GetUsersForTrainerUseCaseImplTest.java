@@ -26,12 +26,12 @@ public class GetUsersForTrainerUseCaseImplTest {
     private GetUsersForTrainerUseCaseImpl getUsersForTrainerUseCase;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testGetUsersForTrainer() {
+    void testGetUsersForTrainer() {
         Long trainerId = 1L;
 
         UserEntity user1 = UserEntity.builder()

@@ -1,4 +1,4 @@
-CREATE TABLE trainer_user_assignments (
+CREATE TABLE IF NOT EXISTS trainer_user_assignments (
                                           id BIGINT AUTO_INCREMENT PRIMARY KEY,
                                           trainer_id BIGINT NOT NULL, -- References users(id) where role_id = 4 (trainer)
                                           user_id BIGINT NOT NULL, -- References users(id) where role_id = 2 (user)

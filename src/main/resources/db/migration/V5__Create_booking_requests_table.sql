@@ -1,4 +1,4 @@
-CREATE TABLE booking_requests (
+CREATE TABLE IF NOT EXISTS booking_requests (
                                   id INT AUTO_INCREMENT PRIMARY KEY,
                                   user_id BIGINT NOT NULL, -- References users(id)
                                   user_name VARCHAR(100) NOT NULL, -- Redundant but included for quick access

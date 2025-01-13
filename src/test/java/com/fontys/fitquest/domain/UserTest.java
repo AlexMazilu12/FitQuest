@@ -1,8 +1,6 @@
-package com.fontys.fitquest;
+package com.fontys.fitquest.domain;
 
 import com.fontys.fitquest.business.implementation.UserConverter;
-import com.fontys.fitquest.domain.Role;
-import com.fontys.fitquest.domain.User;
 import com.fontys.fitquest.persistence.entity.UserEntity;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package com.fontys.fitquest.business.service;
+package com.fontys.fitquest.service;
 
 import com.fontys.fitquest.business.exception.InvalidCredentialsException;
 import com.fontys.fitquest.business.exception.UserAlreadyExistsException;
@@ -8,7 +8,6 @@ import com.fontys.fitquest.domain.requests.LoginRequest;
 import com.fontys.fitquest.domain.responses.LoginResponse;
 import com.fontys.fitquest.persistence.UserRepository;
 import com.fontys.fitquest.persistence.entity.UserEntity;
-import com.fontys.fitquest.service.AuthenticationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

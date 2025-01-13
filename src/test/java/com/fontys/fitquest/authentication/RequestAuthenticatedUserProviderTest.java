@@ -1,4 +1,4 @@
-package com.fontys.fitquest;
+package com.fontys.fitquest.authentication;
 
 import com.fontys.fitquest.configuration.auth.RequestAuthenticatedUserProvider;
 import com.fontys.fitquest.configuration.token.AccessToken;

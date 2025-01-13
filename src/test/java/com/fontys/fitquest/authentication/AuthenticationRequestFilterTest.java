@@ -1,4 +1,4 @@
-package com.fontys.fitquest;
+package com.fontys.fitquest.authentication;
 
 import com.fontys.fitquest.business.exception.InvalidAccessTokenException;
 import com.fontys.fitquest.configuration.auth.AuthenticationRequestFilter;

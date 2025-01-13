@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS workout_plan_exercises (
                                                       sets INT NOT NULL,
                                                       reps INT NOT NULL,
                                                       rest_time INT DEFAULT NULL,
-                                                      FOREIGN KEY (workout_plan_id) REFERENCES workout_plans(id),
+                                                      FOREIGN KEY (workout_plan_id) REFERENCES workout_plans(id) ON DELETE CASCADE,
                                                       FOREIGN KEY (exercise_id) REFERENCES exercises(id)
 );

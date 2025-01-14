@@ -1,7 +1,7 @@
 package com.fontys.fitquest.business.implementation;
 
 import com.fontys.fitquest.business.UpdateUserUseCase;
-import com.fontys.fitquest.business.exception.InvalidUserException;
+import com.fontys.fitquest.business.exception.UserNotFoundException;
 import com.fontys.fitquest.domain.requests.UpdateUserRequest;
 import com.fontys.fitquest.persistence.UserRepository;
 import com.fontys.fitquest.persistence.entity.UserEntity;
@@ -19,7 +19,7 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
     public void updateUser(UpdateUserRequest request) {
         Optional<UserEntity> userOptional = userRepository.findById(request.getId());
         if (userOptional.isEmpty()) {
-            throw new InvalidUserException("USER_ID_INVALID");
+            throw new UserNotFoundException("User not found with id: " + request.getId());
         }
 
         UserEntity user = userOptional.get();

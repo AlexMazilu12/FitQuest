@@ -8,7 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class DeleteExerciseUseCaseImplTest {
 
@@ -26,6 +26,7 @@ class DeleteExerciseUseCaseImplTest {
     @Test
     void deleteExercise() {
         int exerciseId = 1;
+        when(exerciseRepository.existsById(exerciseId)).thenReturn(true);
         deleteExerciseUseCase.deleteExercise(exerciseId);
         verify(exerciseRepository).deleteById(exerciseId);
     }

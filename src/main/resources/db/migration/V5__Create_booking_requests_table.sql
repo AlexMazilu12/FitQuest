@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS booking_requests (
                                   trainer_id BIGINT NOT NULL, -- References users(id) where role = 'TRAINER'
                                   message TEXT, -- Message provided by the user
                                   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- When the request was created
-                                  FOREIGN KEY (user_id) REFERENCES users(id),
-                                  FOREIGN KEY (trainer_id) REFERENCES users(id)
+                                  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ,
+                                  FOREIGN KEY (trainer_id) REFERENCES users(id) ON DELETE CASCADE
 );

@@ -6,6 +6,7 @@ import com.fontys.fitquest.business.GetBookingRequestsByUserUseCase;
 import com.fontys.fitquest.domain.requests.CreateBookingRequest;
 import com.fontys.fitquest.domain.responses.GetBookingRequestsByUserResponse;
 import com.fontys.fitquest.domain.responses.CreateBookingResponse;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -23,6 +24,7 @@ public class BookingRequestByUserController {
     private final GetBookingRequestsByUserUseCase getBookingRequestsByUserUseCase;
     private final DeleteBookingRequestUseCase deleteBookingRequestUseCase;
 
+    @RolesAllowed("USER")
     @PostMapping
     public ResponseEntity<CreateBookingResponse> createBookingRequest(@RequestBody CreateBookingRequest request) {
         CreateBookingResponse response = createBookingRequestUseCase.createBookingRequest(request);
@@ -37,6 +39,7 @@ public class BookingRequestByUserController {
         return ResponseEntity.ok(responses);
     }
 
+    @RolesAllowed({"ADMIN", "TRAINER"})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBookingRequest(@PathVariable Long id) {
         deleteBookingRequestUseCase.deleteBookingRequest(id);

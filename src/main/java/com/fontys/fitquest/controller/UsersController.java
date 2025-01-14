@@ -1,6 +1,7 @@
 package com.fontys.fitquest.controller;
 
 import com.fontys.fitquest.business.*;
+import com.fontys.fitquest.business.exception.UserNotFoundException;
 import com.fontys.fitquest.domain.User;
 import com.fontys.fitquest.domain.requests.CreateUserRequest;
 import com.fontys.fitquest.domain.requests.GetAllUsersRequest;
@@ -49,8 +50,12 @@ public class UsersController {
 
     @DeleteMapping("{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable int userId) {
-        deleteUserUseCase.deleteUser(userId);
-        return ResponseEntity.noContent().build();
+        try {
+            deleteUserUseCase.deleteUser(userId);
+            return ResponseEntity.noContent().build();
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @PostMapping()
@@ -69,8 +74,12 @@ public class UsersController {
 
         if (isAdmin || userDetails.getUsername().equals(request.getEmail())) {
             request.setId(id);
-            updateUserUseCase.updateUser(request);
-            return ResponseEntity.noContent().build();
+            try {
+                updateUserUseCase.updateUser(request);
+                return ResponseEntity.noContent().build();
+            } catch (UserNotFoundException e) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }

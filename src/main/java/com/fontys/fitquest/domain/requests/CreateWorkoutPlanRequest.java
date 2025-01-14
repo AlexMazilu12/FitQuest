@@ -17,10 +17,9 @@ public class CreateWorkoutPlanRequest {
     @NotNull
     private int userId;
 
-    @NotNull
+    @NotBlank
     private String title;
 
-    @NotBlank
     private String description;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

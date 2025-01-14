@@ -6,6 +6,7 @@ import com.fontys.fitquest.business.GetUsersForTrainerUseCase;
 import com.fontys.fitquest.domain.requests.CreateUserTrainerRelationRequest;
 import com.fontys.fitquest.domain.responses.CreateUserTrainerRelationResponse;
 import com.fontys.fitquest.domain.responses.GetUsersForTrainerResponse;
+import jakarta.annotation.security.RolesAllowed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ public class TrainerUserRelationController {
         return ResponseEntity.ok(response);
     }
 
+    @RolesAllowed({"ADMIN", "TRAINER"})
     @DeleteMapping(value = "/trainer/{trainerId}/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> deleteUserTrainerRelation(@PathVariable Long trainerId, @PathVariable Long userId) {
         logger.info("Deleting user-trainer relation with trainer_id: {} and user_id: {}", trainerId, userId);
@@ -46,6 +48,7 @@ public class TrainerUserRelationController {
         return ResponseEntity.noContent().build();
     }
 
+    @RolesAllowed({"ADMIN", "TRAINER"})
     @GetMapping(value = "/trainer/{trainerId}/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<GetUsersForTrainerResponse>> getUsersForTrainer(@PathVariable Long trainerId) {
         List<GetUsersForTrainerResponse> users = getUsersForTrainerUseCase.getUsersForTrainer(trainerId);

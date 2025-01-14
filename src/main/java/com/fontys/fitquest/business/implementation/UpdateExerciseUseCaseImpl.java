@@ -9,6 +9,7 @@ import com.fontys.fitquest.persistence.entity.ExerciseEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -18,12 +19,20 @@ public class UpdateExerciseUseCaseImpl implements UpdateExerciseUseCase {
 
     @Override
     public UpdateExerciseResponse updateExercise(UpdateExerciseRequest request) {
+        if (request.getName() == null || request.getName().isEmpty() ||
+                request.getMuscleGroup() == null || request.getDescription() == null) {
+            throw new IllegalArgumentException("Invalid input data");
+        }
+
         Optional<ExerciseEntity> exerciseEntityOptional = exerciseRepository.findById(request.getId());
         if (exerciseEntityOptional.isPresent()) {
             ExerciseEntity exerciseEntity = exerciseEntityOptional.get();
             exerciseEntity.setName(request.getName());
             exerciseEntity.setMuscleGroup(request.getMuscleGroup());
             exerciseEntity.setDescription(request.getDescription());
+            if (exerciseEntity.getCreatedAt() == null) {
+                exerciseEntity.setCreatedAt(LocalDateTime.now());
+            }
             exerciseRepository.save(exerciseEntity);
 
             return UpdateExerciseResponse.builder()

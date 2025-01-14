@@ -8,8 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class DeleteUserUseCaseImplTest {
 
@@ -28,6 +27,7 @@ class DeleteUserUseCaseImplTest {
     void deleteUser_validId_deletesUser() {
         // Arrange
         long userId = 1L;
+        when(userRepository.existsById(userId)).thenReturn(true);
 
         // Act
         deleteUserUseCase.deleteUser(userId);

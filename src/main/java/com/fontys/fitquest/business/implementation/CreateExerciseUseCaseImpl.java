@@ -1,6 +1,7 @@
 package com.fontys.fitquest.business.implementation;
 
 import com.fontys.fitquest.business.CreateExerciseUseCase;
+import com.fontys.fitquest.business.exception.DuplicateExerciseException;
 import com.fontys.fitquest.domain.requests.CreateExerciseRequest;
 import com.fontys.fitquest.domain.responses.CreateExerciseResponse;
 import com.fontys.fitquest.persistence.ExerciseRepository;
@@ -17,6 +18,15 @@ public class CreateExerciseUseCaseImpl implements CreateExerciseUseCase {
 
     @Override
     public CreateExerciseResponse createExercise(CreateExerciseRequest request) {
+        if (request.getName() == null || request.getName().isEmpty() ||
+                request.getMuscleGroup() == null || request.getDescription() == null) {
+            throw new IllegalArgumentException("Invalid input data");
+        }
+
+        if (exerciseRepository.existsByName(request.getName())) {
+            throw new DuplicateExerciseException("Exercise with the same name already exists");
+        }
+
         ExerciseEntity savedExercise = saveNewExercise(request);
 
         return CreateExerciseResponse.builder()

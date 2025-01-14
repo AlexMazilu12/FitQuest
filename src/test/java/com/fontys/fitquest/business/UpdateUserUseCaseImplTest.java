@@ -1,6 +1,6 @@
 package com.fontys.fitquest.business;
 
-import com.fontys.fitquest.business.exception.InvalidUserException;
+import com.fontys.fitquest.business.exception.UserNotFoundException;
 import com.fontys.fitquest.business.implementation.UpdateUserUseCaseImpl;
 import com.fontys.fitquest.domain.Role;
 import com.fontys.fitquest.domain.requests.UpdateUserRequest;
@@ -52,6 +52,6 @@ class UpdateUserUseCaseImplTest {
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThrows(InvalidUserException.class, () -> updateUserUseCaseImpl.updateUser(request));
+        assertThrows(UserNotFoundException.class, () -> updateUserUseCaseImpl.updateUser(request));
     }
 }

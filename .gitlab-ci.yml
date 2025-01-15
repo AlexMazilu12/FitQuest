@@ -38,8 +38,8 @@ deploy:
     - echo "Deploying to production server..."
     - ./gradlew assemble
     - docker build -t fitquest .
-    - docker stop fitquest-app_staging || true
-    - docker rm fitquest-app_staging || true
+    - docker stop fitquest-app_staging
+    - docker rm --force fitquest-app_staging
     - docker run -d -p 8090:8080 --net=fitquest-network --env spring_profiles_active=docker --name=fitquest-app_staging fitquest
   only:
     - master

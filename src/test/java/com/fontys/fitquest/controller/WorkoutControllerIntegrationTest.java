@@ -3,6 +3,7 @@
 package com.fontys.fitquest.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fontys.fitquest.domain.Role;
 import com.fontys.fitquest.domain.requests.CreateWorkoutPlanRequest;
 import com.fontys.fitquest.domain.requests.UpdateWorkoutPlanRequest;
 import com.fontys.fitquest.persistence.UserRepository;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
@@ -27,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 public class WorkoutControllerIntegrationTest {
 
     @Autowired
@@ -51,6 +54,14 @@ public class WorkoutControllerIntegrationTest {
         Optional<UserEntity> optionalUser = userRepository.findAll().stream().findFirst();
         if (optionalUser.isPresent()) {
             userId = optionalUser.get().getId();
+        } else {
+            UserEntity newUser = UserEntity.builder()
+                    .email("default@example.com")
+                    .password("password")
+                    .role(Role.USER)
+                    .name("Default User")
+                    .build();
+            userId = userRepository.save(newUser).getId();
         }
     }
 

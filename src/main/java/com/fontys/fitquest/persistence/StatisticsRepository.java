@@ -1,6 +1,7 @@
 package com.fontys.fitquest.persistence;
 
 import com.fontys.fitquest.domain.responses.UserStatisticsResponse;
+import com.fontys.fitquest.domain.responses.WorkoutsPerMonthResponse;
 import com.fontys.fitquest.persistence.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +11,11 @@ import java.util.List;
 
 @Repository
 public interface StatisticsRepository extends JpaRepository<UserEntity, Long> {
+
+    @Query("SELECT new com.fontys.fitquest.domain.responses.WorkoutsPerMonthResponse(MONTH(wp.createdAt), COUNT(wp)) " +
+            "FROM WorkoutPlanEntity wp " +
+            "GROUP BY MONTH(wp.createdAt)")
+    List<WorkoutsPerMonthResponse> findWorkoutsPerMonth();
 
     @Query("SELECT new com.fontys.fitquest.domain.responses.UserStatisticsResponse(u.id, u.name, AVG(wpe.exerciseCount)) " +
             "FROM UserEntity u " +

@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class WorkoutControllerIntegrationTest {
+class WorkoutControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -47,7 +47,7 @@ public class WorkoutControllerIntegrationTest {
     private Long userId;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         workoutPlanRepository.deleteAll();
 
         // Find an existing user or create a new one
@@ -67,7 +67,7 @@ public class WorkoutControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testCreateWorkout() throws Exception {
+    void testCreateWorkout() throws Exception {
         CreateWorkoutPlanRequest request = new CreateWorkoutPlanRequest(userId.intValue(), "Workout Plan 1", "Description 1", null, null);
 
         mockMvc.perform(post("/workouts")
@@ -80,7 +80,7 @@ public class WorkoutControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testUpdateWorkout() throws Exception {
+    void testUpdateWorkout() throws Exception {
         WorkoutPlanEntity workoutPlan = WorkoutPlanEntity.builder()
                 .userId(userId.intValue())
                 .title("Workout Plan 1")
@@ -100,7 +100,7 @@ public class WorkoutControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testDeleteWorkout() throws Exception {
+    void testDeleteWorkout() throws Exception {
         WorkoutPlanEntity workoutPlan = WorkoutPlanEntity.builder()
                 .userId(userId.intValue())
                 .title("Workout Plan 1")
@@ -116,7 +116,7 @@ public class WorkoutControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testGetAllWorkouts() throws Exception {
+    void testGetAllWorkouts() throws Exception {
         WorkoutPlanEntity workoutPlan = WorkoutPlanEntity.builder()
                 .userId(userId.intValue())
                 .title("Workout Plan 1")
@@ -134,7 +134,7 @@ public class WorkoutControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testGetWorkout() throws Exception {
+    void testGetWorkout() throws Exception {
         WorkoutPlanEntity workoutPlan = WorkoutPlanEntity.builder()
                 .userId(userId.intValue())
                 .title("Workout Plan 1")
@@ -153,7 +153,7 @@ public class WorkoutControllerIntegrationTest {
     // Validation Tests //
     @Test
     @WithMockUser(roles = "USER")
-    public void testCreateWorkoutValidation() throws Exception {
+    void testCreateWorkoutValidation() throws Exception {
         CreateWorkoutPlanRequest request = new CreateWorkoutPlanRequest(1, "", "Sample description", LocalDateTime.now(), LocalDateTime.now());
 
         mockMvc.perform(post("/workouts")
@@ -165,7 +165,7 @@ public class WorkoutControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testUpdateWorkoutValidation() throws Exception {
+    void testUpdateWorkoutValidation() throws Exception {
         UpdateWorkoutPlanRequest request = new UpdateWorkoutPlanRequest(1L, 1, "", null);
 
         mockMvc.perform(put("/workouts/1")
@@ -177,14 +177,14 @@ public class WorkoutControllerIntegrationTest {
     // Error Handling Tests //
     @Test
     @WithMockUser(roles = "USER")
-    public void testGetWorkoutNotFound() throws Exception {
+    void testGetWorkoutNotFound() throws Exception {
         mockMvc.perform(get("/workouts/999"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testUpdateWorkoutWithNonExistentId() throws Exception {
+    void testUpdateWorkoutWithNonExistentId() throws Exception {
         UpdateWorkoutPlanRequest request = new UpdateWorkoutPlanRequest(999L, 1, "Updated Workout Plan", "Updated Description");
 
         mockMvc.perform(put("/workouts/999")
@@ -195,14 +195,14 @@ public class WorkoutControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testDeleteWorkoutWithNonExistentId() throws Exception {
+    void testDeleteWorkoutWithNonExistentId() throws Exception {
         mockMvc.perform(delete("/workouts/999"))
                 .andExpect(status().isNotFound());
     }
 
     // Security Tests //
     @Test
-    public void testUnauthorizedAccess() throws Exception {
+    void testUnauthorizedAccess() throws Exception {
         mockMvc.perform(post("/workouts")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new CreateWorkoutPlanRequest(1, "Workout Plan 1", "Description 1", null, null))))
@@ -212,7 +212,7 @@ public class WorkoutControllerIntegrationTest {
     // Edge Cases //
     @Test
     @WithMockUser(roles = "USER")
-    public void testCreateWorkoutWithValidNumericDescription() throws Exception {
+    void testCreateWorkoutWithValidNumericDescription() throws Exception {
         // Simulate numeric description sent as a string
         String validRequest = String.format("{\"userId\": %d, \"title\": \"Workout Plan 1\", \"description\": \"123\"}", userId.intValue());
 
@@ -224,7 +224,7 @@ public class WorkoutControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testCreateDuplicateWorkout() throws Exception {
+    void testCreateDuplicateWorkout() throws Exception {
         CreateWorkoutPlanRequest request = new CreateWorkoutPlanRequest(userId.intValue(), "Workout Plan 1", "Description 1", null, null);
 
         mockMvc.perform(post("/workouts")
@@ -240,7 +240,7 @@ public class WorkoutControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testConcurrentUpdateWorkout() throws Exception {
+    void testConcurrentUpdateWorkout() throws Exception {
         WorkoutPlanEntity workoutPlan = WorkoutPlanEntity.builder()
                 .userId(userId.intValue())
                 .title("Workout Plan 1")
@@ -266,7 +266,7 @@ public class WorkoutControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testCreateWorkoutResponseContent() throws Exception {
+    void testCreateWorkoutResponseContent() throws Exception {
         CreateWorkoutPlanRequest request = new CreateWorkoutPlanRequest(userId.intValue(), "Workout Plan 1", "Description 1", null, null);
 
         mockMvc.perform(post("/workouts")
@@ -274,6 +274,7 @@ public class WorkoutControllerIntegrationTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.title").value("Workout Plan 1"))
-                .andExpect(jsonPath("$.description").value("Description 1"));
+                .andExpect(jsonPath("$.description").value("Description 1"))
+                .andExpect(jsonPath("$.id").exists());
     }
 }

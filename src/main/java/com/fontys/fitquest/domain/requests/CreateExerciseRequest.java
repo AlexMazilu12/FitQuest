@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateExerciseRequest {
-    @NotBlank
+    @NotBlank(message = "Name must not be blank")
     private String name;
 
     @NotNull

@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class ExerciseControllerIntegrationTest {
+class ExerciseControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -37,14 +37,14 @@ public class ExerciseControllerIntegrationTest {
     private ExerciseRepository exerciseRepository;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         exerciseRepository.deleteAll();
     }
 
     // CRUD Operations
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testCreateExercise() throws Exception {
+    void testCreateExercise() throws Exception {
         CreateExerciseRequest request = new CreateExerciseRequest("Push Up", MuscleGroup.CHEST, "A basic push up exercise");
 
         mockMvc.perform(post("/exercises")
@@ -58,7 +58,7 @@ public class ExerciseControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testUpdateExercise() throws Exception {
+    void testUpdateExercise() throws Exception {
         ExerciseEntity exercise = ExerciseEntity.builder()
                 .name("Push Up")
                 .muscleGroup(MuscleGroup.CHEST)
@@ -80,7 +80,7 @@ public class ExerciseControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testDeleteExercise() throws Exception {
+    void testDeleteExercise() throws Exception {
         ExerciseEntity exercise = ExerciseEntity.builder()
                 .name("Push Up")
                 .muscleGroup(MuscleGroup.CHEST)
@@ -95,7 +95,7 @@ public class ExerciseControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testGetAllExercises() throws Exception {
+    void testGetAllExercises() throws Exception {
         ExerciseEntity exercise = ExerciseEntity.builder()
                 .name("Push Up")
                 .muscleGroup(MuscleGroup.CHEST)
@@ -113,7 +113,7 @@ public class ExerciseControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testGetExercise() throws Exception {
+    void testGetExercise() throws Exception {
         ExerciseEntity exercise = ExerciseEntity.builder()
                 .name("Push Up")
                 .muscleGroup(MuscleGroup.CHEST)
@@ -132,7 +132,7 @@ public class ExerciseControllerIntegrationTest {
     // Validation Tests
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testCreateExerciseValidation() throws Exception {
+    void testCreateExerciseValidation() throws Exception {
         CreateExerciseRequest request = new CreateExerciseRequest("", MuscleGroup.CHEST, "");
 
         mockMvc.perform(post("/exercises")
@@ -143,7 +143,7 @@ public class ExerciseControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testUpdateExerciseValidation() throws Exception {
+    void testUpdateExerciseValidation() throws Exception {
         UpdateExerciseRequest request = new UpdateExerciseRequest(1, "", MuscleGroup.CHEST, "");
 
         mockMvc.perform(put("/exercises/1")
@@ -154,18 +154,19 @@ public class ExerciseControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testCreateExerciseWithEmptyStrings() throws Exception {
+    void testCreateExerciseWithEmptyStrings() throws Exception {
         CreateExerciseRequest request = new CreateExerciseRequest("", MuscleGroup.CHEST, "");
 
         mockMvc.perform(post("/exercises")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.name").value("Name must not be blank"));
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testCreateExerciseWithNullValues() throws Exception {
+    void testCreateExerciseWithNullValues() throws Exception {
         CreateExerciseRequest request = new CreateExerciseRequest(null, null, null);
 
         mockMvc.perform(post("/exercises")
@@ -176,7 +177,7 @@ public class ExerciseControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testCreateExerciseWithBoundaryValues() throws Exception {
+    void testCreateExerciseWithBoundaryValues() throws Exception {
         CreateExerciseRequest request = new CreateExerciseRequest("a".repeat(101), MuscleGroup.CHEST, "a".repeat(1001));
 
         mockMvc.perform(post("/exercises")
@@ -188,14 +189,14 @@ public class ExerciseControllerIntegrationTest {
     // Error Handling Tests
     @Test
     @WithMockUser(roles = "USER")
-    public void testGetExerciseNotFound() throws Exception {
+    void testGetExerciseNotFound() throws Exception {
         mockMvc.perform(get("/exercises/999"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testUpdateExerciseWithNonExistentId() throws Exception {
+    void testUpdateExerciseWithNonExistentId() throws Exception {
         UpdateExerciseRequest request = new UpdateExerciseRequest(999, "Pull Up", MuscleGroup.BACK, "A basic pull up exercise");
 
         mockMvc.perform(put("/exercises/999")
@@ -206,14 +207,14 @@ public class ExerciseControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testDeleteExerciseWithNonExistentId() throws Exception {
+    void testDeleteExerciseWithNonExistentId() throws Exception {
         mockMvc.perform(delete("/exercises/999"))
                 .andExpect(status().isNotFound());
     }
 
     // Security Tests
     @Test
-    public void testUnauthorizedAccess() throws Exception {
+    void testUnauthorizedAccess() throws Exception {
         mockMvc.perform(post("/exercises")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new CreateExerciseRequest("Push Up", MuscleGroup.CHEST, "A basic push up exercise"))))
@@ -223,7 +224,7 @@ public class ExerciseControllerIntegrationTest {
     // Edge Cases
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testCreateExerciseWithInvalidDataType() throws Exception {
+    void testCreateExerciseWithInvalidDataType() throws Exception {
         String invalidRequest = "{\"name\": \"Push Up\", \"muscleGroup\": \"INVALID\", \"description\": \"A basic push up exercise\"}";
 
         mockMvc.perform(post("/exercises")
@@ -234,7 +235,7 @@ public class ExerciseControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testCreateDuplicateExercise() throws Exception {
+    void testCreateDuplicateExercise() throws Exception {
         CreateExerciseRequest request = new CreateExerciseRequest("Push Up", MuscleGroup.CHEST, "A basic push up exercise");
 
         mockMvc.perform(post("/exercises")
@@ -250,7 +251,7 @@ public class ExerciseControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testConcurrentUpdateExercise() throws Exception {
+    void testConcurrentUpdateExercise() throws Exception {
         ExerciseEntity exercise = ExerciseEntity.builder()
                 .name("Push Up")
                 .muscleGroup(MuscleGroup.CHEST)
@@ -275,7 +276,7 @@ public class ExerciseControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testCreateExerciseResponseContent() throws Exception {
+    void testCreateExerciseResponseContent() throws Exception {
         CreateExerciseRequest request = new CreateExerciseRequest("Push Up", MuscleGroup.CHEST, "A basic push up exercise");
 
         mockMvc.perform(post("/exercises")
@@ -284,6 +285,7 @@ public class ExerciseControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Push Up"))
                 .andExpect(jsonPath("$.muscleGroup").value("CHEST"))
-                .andExpect(jsonPath("$.description").value("A basic push up exercise"));
+                .andExpect(jsonPath("$.description").value("A basic push up exercise"))
+                .andExpect(jsonPath("$.id").exists());
     }
 }

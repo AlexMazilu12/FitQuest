@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class UsersControllerIntegrationTest {
+class UsersControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -37,14 +37,14 @@ public class UsersControllerIntegrationTest {
     private UserRepository userRepository;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         userRepository.deleteAll();
     }
 
     // CRUD Operations //
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testCreateUser() throws Exception {
+    void testCreateUser() throws Exception {
         CreateUserRequest request = new CreateUserRequest("test@example.com", "password", Role.USER, "Test User");
 
         mockMvc.perform(post("/users")
@@ -58,7 +58,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testUpdateUser() throws Exception {
+    void testUpdateUser() throws Exception {
         UserEntity user = UserEntity.builder()
                 .email("test@example.com")
                 .password("password")
@@ -83,7 +83,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testDeleteUser() throws Exception {
+    void testDeleteUser() throws Exception {
         UserEntity user = UserEntity.builder()
                 .email("test@example.com")
                 .password("password")
@@ -101,7 +101,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testGetAllUsers() throws Exception {
+    void testGetAllUsers() throws Exception {
         UserEntity user = UserEntity.builder()
                 .email("test@example.com")
                 .password("password")
@@ -119,7 +119,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    public void testGetUser() throws Exception {
+    void testGetUser() throws Exception {
         UserEntity user = UserEntity.builder()
                 .email("test@example.com")
                 .password("password")
@@ -138,7 +138,7 @@ public class UsersControllerIntegrationTest {
     // Validation Tests //
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testCreateUserValidation() throws Exception {
+    void testCreateUserValidation() throws Exception {
         CreateUserRequest request = new CreateUserRequest("", "password", Role.USER, "");
 
         mockMvc.perform(post("/users")
@@ -149,7 +149,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testUpdateUserValidation() throws Exception {
+    void testUpdateUserValidation() throws Exception {
         UpdateUserRequest request = new UpdateUserRequest(1L, "", Role.USER, "");
 
         mockMvc.perform(put("/users/1")
@@ -161,14 +161,14 @@ public class UsersControllerIntegrationTest {
     // Error Handling Tests //
     @Test
     @WithMockUser(roles = "USER")
-    public void testGetUserNotFound() throws Exception {
+    void testGetUserNotFound() throws Exception {
         mockMvc.perform(get("/users/999"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testUpdateUserWithNonExistentId() throws Exception {
+    void testUpdateUserWithNonExistentId() throws Exception {
         UpdateUserRequest request = new UpdateUserRequest(999L, "updated@example.com", Role.ADMIN, "Updated User");
 
         mockMvc.perform(put("/users/999")
@@ -179,14 +179,14 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testDeleteUserWithNonExistentId() throws Exception {
+    void testDeleteUserWithNonExistentId() throws Exception {
         mockMvc.perform(delete("/users/999"))
                 .andExpect(status().isNotFound());
     }
 
     // Security Tests //
     @Test
-    public void testUnauthorizedAccess() throws Exception {
+    void testUnauthorizedAccess() throws Exception {
         CreateUserRequest request = new CreateUserRequest("test@example.com", "password", Role.USER, "Test User");
 
         mockMvc.perform(post("/users")

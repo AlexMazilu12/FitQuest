@@ -32,13 +32,14 @@ class GetAllWorkoutsUseCaseImplTest {
 
     @Test
     void getAllWorkouts_returnsWorkoutList() {
-        // Arrange
+        int userId = 1;
         WorkoutPlanEntity workoutPlanEntity = new WorkoutPlanEntity();
         workoutPlanEntity.setId(1L);
-        when(workoutPlanRepository.findAll()).thenReturn(Collections.singletonList(workoutPlanEntity));
+        workoutPlanEntity.setUserId(userId);
+        when(workoutPlanRepository.findByUserId(userId)).thenReturn(Collections.singletonList(workoutPlanEntity));
 
         // Act
-        GetAllWorkoutsResponse response = getAllWorkoutsUseCase.getAllWorkouts(new GetAllWorkoutsRequest());
+        GetAllWorkoutsResponse response = getAllWorkoutsUseCase.getAllWorkouts(new GetAllWorkoutsRequest(userId));
 
         // Assert
         assertNotNull(response);

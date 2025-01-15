@@ -20,7 +20,7 @@ public class GetAllWorkoutsUseCaseImpl implements GetAllWorkoutsUseCase {
 
     @Override
     public GetAllWorkoutsResponse getAllWorkouts(GetAllWorkoutsRequest request) {
-        List<WorkoutPlanEntity> workoutPlans = workoutPlanRepository.findAll();
+        List<WorkoutPlanEntity> workoutPlans = workoutPlanRepository.findByUserId(request.getUserId());
         List<WorkoutPlan> workoutPlanList = workoutPlans.stream()
                 .map(WorkoutConverter::convert)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));

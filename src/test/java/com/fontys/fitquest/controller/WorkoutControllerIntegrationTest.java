@@ -126,7 +126,8 @@ class WorkoutControllerIntegrationTest {
                 .build();
         workoutPlanRepository.save(workoutPlan);
 
-        mockMvc.perform(get("/workouts"))
+        mockMvc.perform(get("/workouts")
+                        .param("userId", String.valueOf(userId.intValue())))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.workoutPlans[0].title").value("Workout Plan 1"))
                 .andExpect(jsonPath("$.workoutPlans[0].description").value("Description 1"));

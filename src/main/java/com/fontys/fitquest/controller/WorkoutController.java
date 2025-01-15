@@ -38,8 +38,8 @@ public class WorkoutController {
     }
 
     @GetMapping
-    public ResponseEntity<GetAllWorkoutsResponse> getAllWorkouts() {
-        GetAllWorkoutsRequest request = new GetAllWorkoutsRequest();
+    public ResponseEntity<GetAllWorkoutsResponse> getAllWorkouts(@RequestParam int userId) {
+        GetAllWorkoutsRequest request = new GetAllWorkoutsRequest(userId);
         GetAllWorkoutsResponse response = getAllWorkoutsUseCase.getAllWorkouts(request);
         return ResponseEntity.ok(response);
     }

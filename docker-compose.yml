@@ -1,40 +1,39 @@
 version: '3.8'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: fitquest-app:latest
-    ports:
-      - "8080:8080"
-    depends_on:
-      mysql:
-        condition: service_healthy
-    networks:
-      - fitquest-network
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/fitquest_db
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: my-secret-pw
-
-  mysql:
-    image: mysql:latest
+  fitquest_sql:
+    image: mysql
+    container_name: fitquest_sql
     environment:
       MYSQL_DATABASE: fitquest_db
-      MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: my-secret-pw
     ports:
       - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
     networks:
       - fitquest-network
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+
+  fitquest_sql_staging:
+    image: mysql
+    container_name: fitquest_sql_staging
+    environment:
+      MYSQL_DATABASE: fitquest_db
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+    ports:
+      - "3390:3306"
+    networks:
+      - fitquest-network
+
+  fitquest-app:
+    image: fitquest
+    container_name: fitquest-app
+    build:
+      context: .
+    ports:
+      - "8090:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    networks:
+      - fitquest-network
 
   sonarqube:
     image: sonarqube:latest
@@ -48,4 +47,5 @@ volumes:
 
 networks:
   fitquest-network:
+    name: fitquest-network
     driver: bridge

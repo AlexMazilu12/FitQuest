@@ -168,7 +168,7 @@ class WorkoutControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.title").value("must not be blank"));
+                .andExpect(jsonPath("$.title").value("Title cannot be blank"));
     }
 
     @Test

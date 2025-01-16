@@ -7,6 +7,7 @@ import com.fontys.fitquest.domain.Role;
 import com.fontys.fitquest.domain.requests.CreateWorkoutPlanRequest;
 import com.fontys.fitquest.domain.requests.UpdateWorkoutPlanRequest;
 import com.fontys.fitquest.persistence.UserRepository;
+import com.fontys.fitquest.persistence.WorkoutPlanExerciseRepository;
 import com.fontys.fitquest.persistence.WorkoutPlanRepository;
 import com.fontys.fitquest.persistence.entity.UserEntity;
 import com.fontys.fitquest.persistence.entity.WorkoutPlanEntity;
@@ -42,12 +43,18 @@ class WorkoutControllerIntegrationTest {
     private WorkoutPlanRepository workoutPlanRepository;
 
     @Autowired
+    private WorkoutPlanExerciseRepository workoutPlanExerciseRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
     private Long userId;
 
     @BeforeEach
     void setup() {
+        // Delete all WorkoutPlanExerciseEntity records first to avoid foreign key constraint violations
+        workoutPlanExerciseRepository.deleteAll();
+        // Then delete all WorkoutPlanEntity records
         workoutPlanRepository.deleteAll();
 
         // Find an existing user or create a new one

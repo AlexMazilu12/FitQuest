@@ -4,6 +4,7 @@ import com.fontys.fitquest.business.*;
 import com.fontys.fitquest.domain.WorkoutPlan;
 import com.fontys.fitquest.domain.requests.*;
 import com.fontys.fitquest.domain.responses.*;
+import com.fontys.fitquest.persistence.WorkoutPlanRepository;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,9 @@ public class WorkoutController {
     private final GetExercisesForWorkoutUseCase getExercisesForWorkoutUseCase;
     private final UpdateExerciseInWorkoutUseCase updateExerciseInWorkoutUseCase;
     private final DeleteExerciseFromWorkoutUseCase deleteExerciseFromWorkoutUseCase;
+    private final AssignWorkoutUseCase assignWorkoutUseCase;
+    private final WorkoutPlanRepository workoutPlanRepository;
+
 
     @GetMapping("{id}")
     public ResponseEntity<WorkoutPlan> getWorkout(@PathVariable(value = "id") final long id) {
@@ -101,6 +105,25 @@ public class WorkoutController {
         request.setExerciseId(exerciseId);
         DeleteExerciseFromWorkoutResponse response = deleteExerciseFromWorkoutUseCase.deleteExerciseFromWorkout(request);
         return ResponseEntity.ok(response);
+    }
+
+    @RolesAllowed("TRAINER")
+    @PostMapping("/{workoutId}/assign")
+    public ResponseEntity<AssignWorkoutResponse> assignWorkoutToUser(@PathVariable long workoutId, @RequestBody @Valid AssignWorkoutRequest request) {
+        request.setWorkoutId(workoutId);
+
+        // Check if the workout is already assigned to the user
+        boolean exists = workoutPlanRepository.existsByUserIdAndTitle(request.getUserId(), workoutPlanRepository.findById(workoutId).orElseThrow(() -> new IllegalArgumentException("Workout plan not found")).getTitle());
+        if (exists) {
+            AssignWorkoutResponse response = new AssignWorkoutResponse();
+            response.setWorkoutId(workoutId);
+            response.setUserId(request.getUserId());
+            response.setMessage("Workout is already assigned to the user");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+        }
+
+        AssignWorkoutResponse response = assignWorkoutUseCase.assignWorkout(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     private boolean exerciseAlreadyExists(long workoutPlanId, int exerciseId) {

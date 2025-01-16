@@ -4,6 +4,7 @@ import com.fontys.fitquest.business.*;
 import com.fontys.fitquest.business.exception.DuplicateExerciseException;
 import com.fontys.fitquest.business.exception.ExerciseNotFoundException;
 import com.fontys.fitquest.domain.Exercise;
+import com.fontys.fitquest.domain.MuscleGroup;
 import com.fontys.fitquest.domain.requests.CreateExerciseRequest;
 import com.fontys.fitquest.domain.requests.UpdateExerciseRequest;
 import com.fontys.fitquest.domain.responses.CreateExerciseResponse;
@@ -30,8 +31,11 @@ public class ExerciseController {
     private final DeleteExerciseUseCase deleteExerciseUseCase;
 
     @GetMapping
-    public ResponseEntity<List<Exercise>> getAllExercises() {
-        List<Exercise> exercises = getAllExercisesUseCase.getAllExercises();
+    public ResponseEntity<List<Exercise>> getAllExercises(
+            @RequestParam(required = false) MuscleGroup muscleGroup,
+            @RequestParam(required = false, defaultValue = "name") String orderBy,
+            @RequestParam(required = false, defaultValue = "asc") String direction) {
+        List<Exercise> exercises = getAllExercisesUseCase.getAllExercises(muscleGroup, orderBy, direction);
         return ResponseEntity.ok(exercises);
     }
 

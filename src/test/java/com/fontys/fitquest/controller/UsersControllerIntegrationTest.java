@@ -194,4 +194,23 @@ class UsersControllerIntegrationTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isUnauthorized());
     }
+
+    @Test
+    @WithMockUser(username = "user1@example.com", roles = "USER")
+    void testUserCannotUpdateAnotherUser() throws Exception {
+        UserEntity user = UserEntity.builder()
+                .email("user2@example.com")
+                .password("password")
+                .role(Role.USER)
+                .name("User Two")
+                .build();
+        user = userRepository.save(user);
+
+        UpdateUserRequest request = new UpdateUserRequest(user.getId(), "updated@example.com", Role.USER, "Updated User");
+
+        mockMvc.perform(put("/users/" + user.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isForbidden());
+    }
 }

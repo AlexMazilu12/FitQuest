@@ -46,9 +46,9 @@ class GetAllExercisesUseCaseImplTest {
                 .description("A basic squat exercise")
                 .build();
 
-        when(exerciseRepository.findAll()).thenReturn(Arrays.asList(exercise1, exercise2));
+        when(exerciseRepository.findByFilters(null, "name", "asc")).thenReturn(Arrays.asList(exercise1, exercise2));
 
-        List<Exercise> exercises = getAllExercisesUseCase.getAllExercises();
+        List<Exercise> exercises = getAllExercisesUseCase.getAllExercises(null, "name", "asc");
 
         assertEquals(2, exercises.size());
         assertEquals("Push Up", exercises.get(0).getName());

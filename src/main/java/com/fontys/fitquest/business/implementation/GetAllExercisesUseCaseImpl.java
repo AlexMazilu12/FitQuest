@@ -2,6 +2,7 @@ package com.fontys.fitquest.business.implementation;
 
 import com.fontys.fitquest.business.GetAllExercisesUseCase;
 import com.fontys.fitquest.domain.Exercise;
+import com.fontys.fitquest.domain.MuscleGroup;
 import com.fontys.fitquest.persistence.ExerciseRepository;
 import com.fontys.fitquest.persistence.entity.ExerciseEntity;
 import lombok.AllArgsConstructor;
@@ -16,10 +17,9 @@ public class GetAllExercisesUseCaseImpl implements GetAllExercisesUseCase {
     private final ExerciseRepository exerciseRepository;
 
     @Override
-    public List<Exercise> getAllExercises() {
-        List<ExerciseEntity> exerciseEntities = exerciseRepository.findAll();
-        return exerciseEntities.stream()
-                .map(this::convertToDomain)
+    public List<Exercise> getAllExercises(MuscleGroup muscleGroup, String orderBy, String direction) {
+        return exerciseRepository.findByFilters(muscleGroup, orderBy, direction).stream()
+                .map(ExerciseConverter::convert)
                 .collect(Collectors.toList());
     }
 

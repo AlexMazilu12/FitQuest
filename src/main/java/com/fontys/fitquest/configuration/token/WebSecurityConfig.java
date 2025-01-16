@@ -42,6 +42,7 @@ public class WebSecurityConfig {
                                 .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()
                                 .requestMatchers(HttpMethod.GET, EXERCISES_PATH).authenticated()
                                 .requestMatchers(HttpMethod.POST, EXERCISES_PATH, "/users/").hasRole(ADMIN_ROLE)
+                                .requestMatchers("/api/statistics/**").hasRole(ADMIN_ROLE)
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(configure -> configure.authenticationEntryPoint(authenticationEntryPoint))

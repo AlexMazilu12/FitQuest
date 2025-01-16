@@ -13,6 +13,7 @@ public interface ExerciseRepository extends JpaRepository<ExerciseEntity, Intege
 
     @Query("SELECT e FROM ExerciseEntity e " +
             "WHERE (:muscleGroup IS NULL OR e.muscleGroup = :muscleGroup) " +
+            "AND (:search IS NULL OR e.name LIKE %:search% OR e.description LIKE %:search%) " +
             "ORDER BY " +
             "CASE WHEN :orderBy = 'name' AND :direction = 'asc' THEN e.name END ASC, " +
             "CASE WHEN :orderBy = 'name' AND :direction = 'desc' THEN e.name END DESC, " +
@@ -21,5 +22,6 @@ public interface ExerciseRepository extends JpaRepository<ExerciseEntity, Intege
     List<ExerciseEntity> findByFilters(
             @Param("muscleGroup") MuscleGroup muscleGroup,
             @Param("orderBy") String orderBy,
-            @Param("direction") String direction);
+            @Param("direction") String direction,
+            @Param("search") String search);
 }

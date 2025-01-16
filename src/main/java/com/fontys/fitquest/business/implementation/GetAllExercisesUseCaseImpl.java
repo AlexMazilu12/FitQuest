@@ -17,8 +17,8 @@ public class GetAllExercisesUseCaseImpl implements GetAllExercisesUseCase {
     private final ExerciseRepository exerciseRepository;
 
     @Override
-    public List<Exercise> getAllExercises(MuscleGroup muscleGroup, String orderBy, String direction) {
-        return exerciseRepository.findByFilters(muscleGroup, orderBy, direction).stream()
+    public List<Exercise> getAllExercises(MuscleGroup muscleGroup, String orderBy, String direction, String search) {
+        return exerciseRepository.findByFilters(muscleGroup, orderBy, direction, search).stream()
                 .map(ExerciseConverter::convert)
                 .collect(Collectors.toList());
     }

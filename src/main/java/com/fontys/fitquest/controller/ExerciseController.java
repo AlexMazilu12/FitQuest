@@ -34,8 +34,9 @@ public class ExerciseController {
     public ResponseEntity<List<Exercise>> getAllExercises(
             @RequestParam(required = false) MuscleGroup muscleGroup,
             @RequestParam(required = false, defaultValue = "name") String orderBy,
-            @RequestParam(required = false, defaultValue = "asc") String direction) {
-        List<Exercise> exercises = getAllExercisesUseCase.getAllExercises(muscleGroup, orderBy, direction);
+            @RequestParam(required = false, defaultValue = "asc") String direction,
+            @RequestParam(required = false) String search) {
+        List<Exercise> exercises = getAllExercisesUseCase.getAllExercises(muscleGroup, orderBy, direction, search);
         return ResponseEntity.ok(exercises);
     }
 

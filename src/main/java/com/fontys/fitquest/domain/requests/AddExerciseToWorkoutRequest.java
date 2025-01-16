@@ -11,13 +11,13 @@ import lombok.Data;
 public class AddExerciseToWorkoutRequest {
     private long workoutPlanId;
 
-    @NotNull
+    @NotNull(message = "Select an exercise")
     private ExerciseEntity exercise;
 
-    @Min(1)
+    @Min(value = 1, message = "Sets must be at least 1")
     private int sets;
 
-    @Min(1)
+    @Min(value = 1, message = "Reps must be at least 1")
     private int reps;
     private Integer restTime;
 }

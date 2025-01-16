@@ -17,7 +17,7 @@ public class CreateWorkoutPlanRequest {
     @NotNull
     private int userId;
 
-    @NotBlank
+    @NotBlank(message = "Title cannot be blank")
     private String title;
 
     private String description;

@@ -4,7 +4,6 @@ import com.fontys.fitquest.business.GetAllExercisesUseCase;
 import com.fontys.fitquest.domain.Exercise;
 import com.fontys.fitquest.domain.MuscleGroup;
 import com.fontys.fitquest.persistence.ExerciseRepository;
-import com.fontys.fitquest.persistence.entity.ExerciseEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,15 +20,5 @@ public class GetAllExercisesUseCaseImpl implements GetAllExercisesUseCase {
         return exerciseRepository.findByFilters(muscleGroup, orderBy, direction, search).stream()
                 .map(ExerciseConverter::convert)
                 .collect(Collectors.toList());
-    }
-
-    private Exercise convertToDomain(ExerciseEntity exerciseEntity) {
-        return Exercise.builder()
-                .id(exerciseEntity.getId())
-                .name(exerciseEntity.getName())
-                .muscleGroup(exerciseEntity.getMuscleGroup())
-                .description(exerciseEntity.getDescription())
-                .createdAt(exerciseEntity.getCreatedAt())
-                .build();
     }
 }

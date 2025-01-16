@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = FitQuestApplication.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class StatisticsControllerIntegrationTest {
+class StatisticsControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;

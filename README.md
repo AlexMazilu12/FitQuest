@@ -21,3 +21,7 @@ A fitness tracking and management REST API built with Java Spring Boot, develope
 - **CI/CD:** GitLab CI/CD Pipelines
 - **Testing:** JUnit (unit & integration), Cypress (E2E), Google Lighthouse (performance)
 - **Code Quality:** SonarQube
+
+## Related Repository
+
+- [FitQuest Frontend](https://github.com/AlexMazilu12/FitQuest-frontend)
